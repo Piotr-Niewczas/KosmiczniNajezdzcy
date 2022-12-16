@@ -56,7 +56,7 @@ namespace KosmiczniNajeźdźcy
                 for (int enemy = 0; enemy < enemies.Count(); enemy++)
                 {
                     
-                    if (enemies[enemy].isAt(playerBullets[bullet].posX, playerBullets[bullet].posY))
+                    if (enemies[enemy].isAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
                     {
                         enemies[enemy].Die();
                         enemies.RemoveAt(enemy);

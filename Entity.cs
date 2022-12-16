@@ -10,11 +10,9 @@ namespace KosmiczniNajeźdźcy
     public abstract class Entity
     {
         internal int health;
-        internal int posX, posY;
         internal Point pos;
         internal int pixelSize;
-        public int Pos { get => posX; }
-        public int PosY { get => posY; }
+        public Point Pos { get => pos; }
 
         internal int SizeX { get => graphic[0].Count() * (pixelSize+1); }
         internal int SizeY { get => graphic.Count() * (pixelSize+1); }
@@ -22,19 +20,19 @@ namespace KosmiczniNajeźdźcy
         internal bool allowUpDownMove = true;
 
         internal List<List<Square>> graphic = new List<List<Square>>();
-        private int prevX, prevY;
+        private Point prevPos;
 
         
 
         virtual public void Refresh(Graphics g)
         {
-            if (prevX != PosX || prevY != posY)
+            if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
             {
                 for (int x = 0; x < graphic.Count(); x++)
                 {
                     for (int y = 0; y < graphic[x].Count(); y++)
                     {
-                        graphic[x][y].UnDraw(g, prevX, prevY);
+                        graphic[x][y].UnDraw(g, prevPos.X, prevPos.Y);
                     }
 
                 }
@@ -43,7 +41,7 @@ namespace KosmiczniNajeźdźcy
             {
                 for (int y = 0; y < graphic[x].Count(); y++)
                 {
-                    graphic[x][y].Draw(g, PosX, PosY);
+                    graphic[x][y].Draw(g, Pos.X, Pos.Y);
                 }
             }
         }
@@ -59,35 +57,35 @@ namespace KosmiczniNajeźdźcy
             {
                 if (!(x < 0 || x > 700 - SizeX))
                 {
-                    prevX = x;
-                    this.posX = x;
+                    prevPos.X = x;
+                    pos.X = x;
                 }
                 if (!(!allowUpDownMove || y < 70 || y > 800 - SizeY))
                 {
-                    prevY = y;
-                    this.posY = y;
+                    prevPos.Y = y;
+                    pos.Y = y;
                 }
             }
             else
             {
                 if (allowUpDownMove)
                 {
-                    prevY = y;
-                    this.posY = y;
+                    prevPos.Y = y;
+                    pos.Y = y;
                 }
-                prevX = x;
-                this.posX = x;
+                prevPos.X = x;
+                pos.X = x;
             }
         }
 
         internal void MoveBy(int dx, int dy, bool checkBounds)
         {
-            MoveTo(this.posX + dx, this.posY + dy, checkBounds);
+            MoveTo(this.Pos.X + dx, this.Pos.Y + dy, checkBounds);
         }
 
         public void MoveBy(int dx, int dy)
         {
-            MoveBy(this.posX + dx, this.posY + dy, true);
+            MoveBy(this.Pos.X + dx, this.Pos.Y + dy, true);
         }
 
         virtual public void ReciveDamage(int damage)
@@ -110,7 +108,7 @@ namespace KosmiczniNajeźdźcy
             {
                 for (int j = 0; j < graphic[i].Count(); j++)
                 {
-                    if (graphic[i][j].isInBounds(x,y,PosX,PosY))
+                    if (graphic[i][j].isInBounds(x,y,Pos.X,Pos.Y))
                     {
                         return true;
                     }

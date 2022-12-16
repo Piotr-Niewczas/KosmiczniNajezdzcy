@@ -10,17 +10,15 @@ namespace KosmiczniNajeźdźcy
     {
         int drawingSize;
         Color color;
-        int x, y;
+        Point pos;
         public Square(int drawingSize, Color color, int x, int y)
         {
             this.drawingSize = drawingSize;
             this.color = color;
-            this.X = x;
-            this.Y = y;
+            pos = new Point(x, y);
         }
 
-        public int X { get => x; set => x = value; }
-        public int Y { get => y; set => y = value; }
+        public Point Pos { get => pos; }
 
         public void Draw(Graphics g, int offsetX, int offsetY)
         {
@@ -35,7 +33,7 @@ namespace KosmiczniNajeźdźcy
             if (drawingSize != 0)
             {
                 SolidBrush myBrush = new SolidBrush(color);
-                g.FillRectangle(myBrush, new Rectangle(X+offsetX, Y+offsetY, drawingSize, drawingSize));
+                g.FillRectangle(myBrush, new Rectangle(Pos.X+offsetX, Pos.Y+offsetY, drawingSize, drawingSize));
                 myBrush.Dispose();
             }
         }
@@ -45,7 +43,7 @@ namespace KosmiczniNajeźdźcy
             {
                 for (int j = 0; j < drawingSize; j++)
                 {
-                    if (x == this.x + offsetX + i && y == this.y + offsetY + j)
+                    if (x == Pos.X + offsetX + i && y == Pos.Y + offsetY + j)
                     {
                         return true;
                     }

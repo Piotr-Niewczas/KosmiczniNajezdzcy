@@ -13,8 +13,7 @@ namespace KosmiczniNajeźdźcy
         int damage;
         public Bullet(int ySpeed, int x, int y, int damage, Color color)
         {
-            this.posX = x;
-            this.posY = y;
+            pos = new Point(x, y);
             this.ySpeed = ySpeed;
             size = 5;
             graphic.Add(new List<Square> { new Square(size, color, 0, 0) });

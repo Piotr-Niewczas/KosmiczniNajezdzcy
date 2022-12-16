@@ -12,8 +12,7 @@ namespace KosmiczniNajeźdźcy
         int[] gunExit = new int[] { 0, 0 };
         public TestEntity(int x, int y, Color color)
         {
-            this.posX= x;
-            this.posY= y;
+            pos = new Point(x, y);
             health = 1;
             pixelSize = 5;
             graphic = GetGraphicFromString(graphicStr, color);
