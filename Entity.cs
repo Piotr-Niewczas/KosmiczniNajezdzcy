@@ -9,17 +9,17 @@ namespace KosmiczniNajeźdźcy
 {
     public abstract class Entity
     {
-        internal int health;
-        internal Point pos;
-        internal int pixelSize;
+        protected int health;
+        protected Point pos;
+        protected int pixelSize;
         public Point Pos { get => pos; }
 
-        internal int SizeX { get => graphic[0].Count() * (pixelSize+1); }
-        internal int SizeY { get => graphic.Count() * (pixelSize+1); }
-        internal bool coliderEnabled = true;
-        internal bool allowUpDownMove = true;
-
-        internal List<List<Square>> graphic = new List<List<Square>>();
+        protected int SizeX { get => graphic[0].Count() * (pixelSize+1); }
+        protected int SizeY { get => graphic.Count() * (pixelSize+1); }
+        protected bool coliderEnabled = true;
+        protected bool allowUpDownMove = true;
+        
+        protected List<List<Square>> graphic = new List<List<Square>>();
         private Point prevPos;
 
         virtual public void Refresh(Graphics g)
@@ -49,7 +49,7 @@ namespace KosmiczniNajeźdźcy
             MoveTo(x, y, true);
         }
 
-        internal void MoveTo(int x, int y, bool checkBounds)
+        protected void MoveTo(int x, int y, bool checkBounds)
         {
             if (checkBounds)
             {
@@ -76,14 +76,9 @@ namespace KosmiczniNajeźdźcy
             }
         }
 
-        internal void MoveBy(int dx, int dy, bool checkBounds)
+        public void MoveBy(int dx, int dy, bool checkBounds = true)
         {
             MoveTo(this.Pos.X + dx, this.Pos.Y + dy, checkBounds);
-        }
-
-        public void MoveBy(int dx, int dy)
-        {
-            MoveBy(this.Pos.X + dx, this.Pos.Y + dy, true);
         }
 
         virtual public void ReciveDamage(int damage)
@@ -94,7 +89,7 @@ namespace KosmiczniNajeźdźcy
                 this.Die();
             }
         }
-        internal abstract void Die();
+        public abstract void Die();
 
         public bool isAt(int x, int y)
         {
@@ -114,8 +109,8 @@ namespace KosmiczniNajeźdźcy
             }
             return false;
         }
-        
-        internal List<List<Square>> GetGraphicFromString(string str, Color color)
+
+        protected List<List<Square>> GetGraphicFromString(string str, Color color)
         {
             List<List<Square>> tmp = new List<List<Square>>();
             List<string> rows = str.Split("\r\n").ToList();

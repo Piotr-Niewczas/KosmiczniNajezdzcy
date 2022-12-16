@@ -20,12 +20,12 @@ namespace KosmiczniNajeźdźcy
         {
             get;
         }
-        internal override void Die()
+        public override void Die()
         {
             this.graphic.Clear();
             this.coliderEnabled = false;
         }
-        internal virtual Bullet Fire()
+        public virtual Bullet Fire()
         {
             return new Bullet(-3, Pos.X + GunExit.X, Pos.Y + GunExit.Y, 1, Color.White);
         }
