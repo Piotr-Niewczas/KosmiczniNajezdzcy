@@ -22,8 +22,6 @@ namespace KosmiczniNajeźdźcy
         internal List<List<Square>> graphic = new List<List<Square>>();
         private Point prevPos;
 
-        
-
         virtual public void Refresh(Graphics g)
         {
             if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)

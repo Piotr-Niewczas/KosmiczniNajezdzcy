@@ -32,6 +32,7 @@ namespace KosmiczniNajeźdźcy
 
         private void frameTimer_Tick(object sender, EventArgs e)
         {
+            scoreNr1Label.Text = gc.player1Score.ToString().PadLeft(4, '0');
             Refresh();
         }
 

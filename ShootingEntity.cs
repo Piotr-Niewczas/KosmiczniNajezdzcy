@@ -10,8 +10,12 @@ namespace KosmiczniNajeźdźcy
     {
         private bool isGraduallyMoving = false;
         private Point desiredPos;
-        private float[] currentPos = new float[2];
+        private float[] currentfPos = new float[2];
         private float[] moveByVect= new float[2];
+        protected int pointVal;
+
+        public int PointVal => pointVal;
+
         public abstract Point GunExit
         {
             get;
@@ -30,29 +34,29 @@ namespace KosmiczniNajeźdźcy
         public void GraduallyMoveTo(int x, int y, int steps)
         {
             desiredPos = new Point(x, y);
-            currentPos[0] = pos.X; 
-            currentPos[1] = pos.Y;
+            currentfPos[0] = pos.X; 
+            currentfPos[1] = pos.Y;
             isGraduallyMoving = true;
             
 
-            moveByVect[0] = (desiredPos.X - currentPos[0]) / steps;
-            moveByVect[1] = (desiredPos.Y - currentPos[1]) / steps;
+            moveByVect[0] = (desiredPos.X - currentfPos[0]) / steps;
+            moveByVect[1] = (desiredPos.Y - currentfPos[1]) / steps;
         }
 
         public override void Refresh(Graphics g)
         {
             if (isGraduallyMoving)
             {
-                if (desiredPos.X == Convert.ToInt32(currentPos[0]) && desiredPos.Y == Convert.ToInt32(currentPos[1]))
+                if (desiredPos.X == Convert.ToInt32(currentfPos[0]) && desiredPos.Y == Convert.ToInt32(currentfPos[1]))
                 {
                     isGraduallyMoving = false;
                 }
                 else
                 {
-                    currentPos[0] = currentPos[0] + moveByVect[0];
-                    currentPos[1] = currentPos[1] + moveByVect[1];
+                    currentfPos[0] = currentfPos[0] + moveByVect[0];
+                    currentfPos[1] = currentfPos[1] + moveByVect[1];
 
-                    this.MoveTo(Convert.ToInt32(currentPos[0]), Convert.ToInt32(currentPos[1]), false);
+                    this.MoveTo(Convert.ToInt32(currentfPos[0]), Convert.ToInt32(currentfPos[1]), false);
                 }
 
             }

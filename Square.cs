@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KosmiczniNajeźdźcy
 {
-    internal class Square
+    public class Square
     {
         int drawingSize;
         Color color;

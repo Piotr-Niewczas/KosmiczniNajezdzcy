@@ -20,6 +20,8 @@ namespace KosmiczniNajeźdźcy
         public int[] vectToMoveBy = new int[] { 0, 0 };
         public bool isFiring = false;
         bool canFire = true;
+        public int player1Score = 0;
+
         public void Start()
         {
             player = new TestEntity(10, 80, Color.LightGreen);
@@ -58,6 +60,7 @@ namespace KosmiczniNajeźdźcy
                     
                     if (enemies[enemy].isAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
                     {
+                        player1Score += enemies[enemy].PointVal;
                         enemies[enemy].Die();
                         enemies.RemoveAt(enemy);
                         toDelete = bullet;
