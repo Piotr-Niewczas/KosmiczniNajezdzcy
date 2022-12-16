@@ -1,0 +1,156 @@
+﻿using System;
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KosmiczniNajeźdźcy
+{
+    public abstract class Entity
+    {
+        internal int health;
+        internal int posX, posY;
+        internal Point pos;
+        internal int pixelSize;
+        public int Pos { get => posX; }
+        public int PosY { get => posY; }
+
+        internal int SizeX { get => graphic[0].Count() * (pixelSize+1); }
+        internal int SizeY { get => graphic.Count() * (pixelSize+1); }
+        internal bool coliderEnabled = true;
+        internal bool allowUpDownMove = true;
+
+        internal List<List<Square>> graphic = new List<List<Square>>();
+        private int prevX, prevY;
+
+        
+
+        virtual public void Refresh(Graphics g)
+        {
+            if (prevX != PosX || prevY != posY)
+            {
+                for (int x = 0; x < graphic.Count(); x++)
+                {
+                    for (int y = 0; y < graphic[x].Count(); y++)
+                    {
+                        graphic[x][y].UnDraw(g, prevX, prevY);
+                    }
+
+                }
+            }
+            for (int x = 0; x < graphic.Count(); x++)
+            {
+                for (int y = 0; y < graphic[x].Count(); y++)
+                {
+                    graphic[x][y].Draw(g, PosX, PosY);
+                }
+            }
+        }
+
+        public void MoveTo(int x, int y)
+        {
+            MoveTo(x, y, true);
+        }
+
+        internal void MoveTo(int x, int y, bool checkBounds)
+        {
+            if (checkBounds)
+            {
+                if (!(x < 0 || x > 700 - SizeX))
+                {
+                    prevX = x;
+                    this.posX = x;
+                }
+                if (!(!allowUpDownMove || y < 70 || y > 800 - SizeY))
+                {
+                    prevY = y;
+                    this.posY = y;
+                }
+            }
+            else
+            {
+                if (allowUpDownMove)
+                {
+                    prevY = y;
+                    this.posY = y;
+                }
+                prevX = x;
+                this.posX = x;
+            }
+        }
+
+        internal void MoveBy(int dx, int dy, bool checkBounds)
+        {
+            MoveTo(this.posX + dx, this.posY + dy, checkBounds);
+        }
+
+        public void MoveBy(int dx, int dy)
+        {
+            MoveBy(this.posX + dx, this.posY + dy, true);
+        }
+
+        virtual public void ReciveDamage(int damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                this.Die();
+            }
+        }
+        internal abstract void Die();
+
+        public bool isAt(int x, int y)
+        {
+            if (!coliderEnabled)
+            {
+                return false;
+            }
+            for (int i = 0; i < graphic.Count(); i++)
+            {
+                for (int j = 0; j < graphic[i].Count(); j++)
+                {
+                    if (graphic[i][j].isInBounds(x,y,PosX,PosY))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        internal List<List<Square>> GetGraphicFromString(string str, Color color)
+        {
+            List<List<Square>> tmp = new List<List<Square>>();
+            List<string> rows = str.Split("\r\n").ToList();
+            int x = 0;
+            foreach (var row in rows)
+            {
+                int y = 0;
+                List<string> cols = row.Split("\t").ToList();
+                List<Square> squareCols = new List<Square>();
+                foreach (var col in cols)
+                {
+                    Color tmpColor;
+                    if (col == "1")
+                    {
+                        tmpColor = color;
+                    }
+                    else
+                    {
+                        tmpColor = Color.Transparent;
+                    }
+                    Square tmpSquare = new Square(pixelSize+1, tmpColor, y + y * pixelSize, x + x * pixelSize);
+                    squareCols.Add(tmpSquare);
+                    y++;
+                }
+                tmp.Add(squareCols);
+                x++;
+            }
+
+            
+
+            return tmp;
+        }
+    }
+}
