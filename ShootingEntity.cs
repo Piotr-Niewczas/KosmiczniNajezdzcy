@@ -20,6 +20,9 @@ namespace KosmiczniNajeźdźcy
             this.pointVal = pointVal;
             this.bulletDamage = bulletDamage;
         }
+        protected ShootingEntity(Point pos, List<List<Square>> graphic, int pointVal): this(1,pos,5,true,graphic, pointVal, 1) 
+        { 
+        }    
 
         public int PointVal => pointVal;
 
