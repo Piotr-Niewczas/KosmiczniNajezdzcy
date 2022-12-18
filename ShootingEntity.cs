@@ -13,6 +13,13 @@ namespace KosmiczniNajeźdźcy
         private float[] currentfPos = new float[2];
         private float[] moveByVect= new float[2];
         protected int pointVal;
+        int bulletDamage;
+
+        protected ShootingEntity(int health, Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic, int pointVal, int bulletDamage) : base(health, pos, pixelSize, allowUpDownMove, graphic)
+        {
+            this.pointVal = pointVal;
+            this.bulletDamage = bulletDamage;
+        }
 
         public int PointVal => pointVal;
 
@@ -27,7 +34,7 @@ namespace KosmiczniNajeźdźcy
         }
         public virtual Bullet Fire()
         {
-            return new Bullet(-3, Pos.X + GunExit.X, Pos.Y + GunExit.Y, 1, Color.White);
+            return new Bullet(-3, Pos.X + GunExit.X, Pos.Y + GunExit.Y, bulletDamage,5, Color.White);
         }
 
 

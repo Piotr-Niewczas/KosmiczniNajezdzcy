@@ -8,17 +8,14 @@ namespace KosmiczniNajeźdźcy
 {
     internal class Bullet : Entity
     {
+        static string graphicStr = "1\r\n1\r\n";
         int ySpeed;
-        int size;
         int damage;
-        public Bullet(int ySpeed, int x, int y, int damage, Color color)
+
+        public Bullet(int ySpeed, int x, int y, int damage, int size, Color color) : base(1, new Point(x,y), size, true, Entity.GetGraphicFromString(graphicStr, color, size))
         {
-            pos = new Point(x, y);
             this.ySpeed = ySpeed;
-            size = 5;
-            graphic.Add(new List<Square> { new Square(size, color, 0, 0) });
-            graphic.Add(new List<Square> { new Square(size, color, 0, 0+size) });
-            this.damage = damage;
+            this.damage= damage;
         }
 
         public override void Die()

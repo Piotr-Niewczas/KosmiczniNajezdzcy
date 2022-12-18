@@ -24,11 +24,11 @@ namespace KosmiczniNajeźdźcy
 
         public void Start()
         {
-            player = new TestEntity(10, 80, Color.LightGreen);
+            player = new TestEntity( new Point(10, 80), Color.LightGreen);
 
             for (int i = 1; i < 6; i++)
             {
-                enemies.Add(new TestEntity(100*i, 200, Color.Red));
+                enemies.Add(new TestEntity( new Point(100*i, 200), Color.Red));
             }
 
             fireCooldown = new System.Timers.Timer(450);

@@ -22,26 +22,51 @@ namespace KosmiczniNajeźdźcy
         protected List<List<Square>> graphic = new List<List<Square>>();
         private Point prevPos;
 
-        virtual public void Refresh(Graphics g)
+        public Entity(int health, Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic)
         {
-            if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
-            {
-                for (int x = 0; x < graphic.Count(); x++)
-                {
-                    for (int y = 0; y < graphic[x].Count(); y++)
-                    {
-                        graphic[x][y].UnDraw(g, prevPos.X, prevPos.Y);
-                    }
+            this.health = health;
+            this.pos = pos;
+            this.pixelSize = pixelSize;
+            this.coliderEnabled = true;
+            this.allowUpDownMove = allowUpDownMove;
+            this.graphic = graphic;
+            this.prevPos = pos;
+        }
 
-                }
-            }
+        ~Entity()
+        {
+            Die();
+        }
+
+        private void Draw(Graphics g, Point pos)
+        {
             for (int x = 0; x < graphic.Count(); x++)
             {
                 for (int y = 0; y < graphic[x].Count(); y++)
                 {
-                    graphic[x][y].Draw(g, Pos.X, Pos.Y);
+                    graphic[x][y].Draw(g, pos.X, pos.Y);
                 }
             }
+        }
+        private void Undraw(Graphics g, Point pos)
+        {
+            for (int x = 0; x < graphic.Count(); x++)
+            {
+                for (int y = 0; y < graphic[x].Count(); y++)
+                {
+                    graphic[x][y].UnDraw(g, pos.X, pos.Y);
+                }
+
+            }
+        }
+
+        virtual public void Refresh(Graphics g)
+        {
+            if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
+            {
+                Undraw(g, prevPos);
+            }
+            Draw(g, Pos);
         }
 
         public void MoveTo(int x, int y)
@@ -110,7 +135,7 @@ namespace KosmiczniNajeźdźcy
             return false;
         }
 
-        protected List<List<Square>> GetGraphicFromString(string str, Color color)
+        protected static List<List<Square>> GetGraphicFromString(string str, Color color, int pixelSize)
         {
             List<List<Square>> tmp = new List<List<Square>>();
             List<string> rows = str.Split("\r\n").ToList();

@@ -4,23 +4,20 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace KosmiczniNajeźdźcy
 {
     internal class TestEntity : ShootingEntity
     {
-        string graphicStr = "0\t0\t1\t0\t0\t0\t0\t0\t1\t0\t0\r\n0\t0\t0\t1\t0\t0\t0\t1\t0\t0\t0\r\n0\t0\t1\t1\t1\t1\t1\t1\t1\t0\t0\r\n0\t1\t1\t0\t1\t1\t1\t0\t1\t1\t0\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t0\t1\t1\t1\t1\t1\t1\t1\t0\t1\r\n1\t0\t1\t0\t0\t0\t0\t0\t1\t0\t1\r\n0\t0\t0\t1\t1\t0\t1\t1\t0\t0\t0\r\n";
-
+        static string graphicStr = "0\t0\t1\t0\t0\t0\t0\t0\t1\t0\t0\r\n0\t0\t0\t1\t0\t0\t0\t1\t0\t0\t0\r\n0\t0\t1\t1\t1\t1\t1\t1\t1\t0\t0\r\n0\t1\t1\t0\t1\t1\t1\t0\t1\t1\t0\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t0\t1\t1\t1\t1\t1\t1\t1\t0\t1\r\n1\t0\t1\t0\t0\t0\t0\t0\t1\t0\t1\r\n0\t0\t0\t1\t1\t0\t1\t1\t0\t0\t0\r\n";
+        static int bulletDamage = 1;
+        
         Point gunExit = new Point(0,0);
 
-        public TestEntity(int x, int y, Color color)
+        public TestEntity(Point pos, Color color) : 
+            base(1, pos, 5, true, Entity.GetGraphicFromString(graphicStr, color, 5), 10,bulletDamage)
         {
-            pos = new Point(x, y);
-            health = 1;
-            pixelSize = 5;
-            pointVal = 10;
-            graphic = GetGraphicFromString(graphicStr, color);
-
         }
 
         public override Point GunExit => gunExit;
