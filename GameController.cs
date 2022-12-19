@@ -70,6 +70,7 @@ namespace KosmiczniNajeźdźcy
                 }
                 if (toDelete != -1)
                 {
+                    playerBullets[toDelete] = null;
                     playerBullets.RemoveAt(toDelete);
                 }
 
