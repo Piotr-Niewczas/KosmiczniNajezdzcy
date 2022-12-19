@@ -27,18 +27,21 @@ namespace KosmiczniNajeźdźcy
         public void Start()
         {
             player = new TestEntity( new Point(330, 680), Color.LightGreen);
-
-            for (int i = 1; i < 6; i++)
+            for (int i = 0; i < 4; i++)
             {
-                enemies.Add(new TestEntity( new Point(100*i, 200), Color.Red));
+                for (int j = 1; j < 10; j++)
+                {
+                    enemies.Add(new TestEntity(new Point(60 * j + 10, 150+i*50), Color.Aqua));
+                }
             }
+            
 
             fireCooldown = new System.Timers.Timer(450);
             fireCooldown.Elapsed += OnCooldownElapsed;
             fireCooldown.AutoReset = false;
             fireCooldown.Enabled = false;
 
-            enemies[0].GraduallyMoveTo(500, 500, 500);
+            //enemies[0].GraduallyMoveTo(500, 500, 500);
         }
 
         public void Update(PaintEventArgs e)
@@ -63,7 +66,7 @@ namespace KosmiczniNajeźdźcy
                     if (enemies[enemy].isAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
                     {
                         player1Score += enemies[enemy].PointVal;
-                        enemies[enemy].Die();
+                        enemies[enemy].ReciveDamage();
                         enemies.RemoveAt(enemy);
                         toDelete = bullet;
                     } 

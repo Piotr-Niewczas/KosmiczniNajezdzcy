@@ -30,7 +30,7 @@ namespace KosmiczniNajeźdźcy
         {
             get;
         }
-        public override void Die()
+        protected override void Die()
         {
             this.graphic.Clear();
             this.coliderEnabled = false;

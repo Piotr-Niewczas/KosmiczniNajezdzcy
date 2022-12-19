@@ -106,11 +106,11 @@ namespace KosmiczniNajeźdźcy
             MoveTo(this.Pos.X + dx, this.Pos.Y + dy, checkBounds);
         }
 
-        virtual public void ReciveDamage(int damage)
+        virtual public void ReciveDamage()
         {
             this.Die();
         }
-        public abstract void Die();
+        protected abstract void Die();
 
         public bool isAt(int x, int y)
         {
