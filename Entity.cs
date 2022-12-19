@@ -1,13 +1,14 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace KosmiczniNajeźdźcy
 {
-    public abstract class Entity
+    public abstract class Entity : IDrawable, IMovable
     {
         protected int health;
         protected Point pos;
@@ -66,7 +67,7 @@ namespace KosmiczniNajeźdźcy
             {
                 Undraw(g, prevPos);
             }
-            Draw(g, Pos);
+            Draw(g, Pos);   
         }
 
         public void MoveTo(int x, int y)
@@ -99,6 +100,7 @@ namespace KosmiczniNajeźdźcy
                 prevPos.X = x;
                 pos.X = x;
             }
+            needToRepaint = true;
         }
 
         public void MoveBy(int dx, int dy, bool checkBounds = true)
@@ -168,5 +170,6 @@ namespace KosmiczniNajeźdźcy
 
             return tmp;
         }
+
     }
 }
