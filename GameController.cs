@@ -13,6 +13,8 @@ namespace KosmiczniNajeźdźcy
     {
 
         private static System.Timers.Timer fireCooldown;
+
+        public readonly static int PixelSize = 3;
         
         TestEntity player;
         List<TestEntity> enemies= new List<TestEntity>();
@@ -24,7 +26,7 @@ namespace KosmiczniNajeźdźcy
 
         public void Start()
         {
-            player = new TestEntity( new Point(10, 80), Color.LightGreen);
+            player = new TestEntity( new Point(330, 680), Color.LightGreen);
 
             for (int i = 1; i < 6; i++)
             {

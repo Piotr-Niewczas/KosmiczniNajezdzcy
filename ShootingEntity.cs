@@ -20,7 +20,7 @@ namespace KosmiczniNajeźdźcy
             this.pointVal = pointVal;
             this.bulletDamage = bulletDamage;
         }
-        protected ShootingEntity(Point pos, List<List<Square>> graphic, int pointVal): this(1,pos,5,true,graphic, pointVal, 1) 
+        protected ShootingEntity(Point pos, List<List<Square>> graphic, int pointVal): this(1,pos,GameController.PixelSize,true,graphic, pointVal, 1) 
         { 
         }    
 
@@ -37,7 +37,7 @@ namespace KosmiczniNajeźdźcy
         }
         public virtual Bullet Fire()
         {
-            return new Bullet(-3, Pos.X + GunExit.X, Pos.Y + GunExit.Y, bulletDamage,5, Color.White);
+            return new Bullet(-3, Pos.X + GunExit.X, Pos.Y + GunExit.Y, bulletDamage,GameController.PixelSize, Color.White);
         }
 
 
