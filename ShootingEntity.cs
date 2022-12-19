@@ -15,12 +15,12 @@ namespace KosmiczniNajeźdźcy
         protected int pointVal;
         int bulletDamage;
 
-        protected ShootingEntity(int health, Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic, int pointVal, int bulletDamage) : base(health, pos, pixelSize, allowUpDownMove, graphic)
+        protected ShootingEntity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic, int pointVal, int bulletDamage) : base(pos, pixelSize, allowUpDownMove, graphic)
         {
             this.pointVal = pointVal;
             this.bulletDamage = bulletDamage;
         }
-        protected ShootingEntity(Point pos, List<List<Square>> graphic, int pointVal): this(1,pos,GameController.PixelSize,true,graphic, pointVal, 1) 
+        protected ShootingEntity(Point pos, List<List<Square>> graphic, int pointVal): this(pos,GameController.PixelSize,true,graphic, pointVal, 1) 
         { 
         }    
 

@@ -10,7 +10,6 @@ namespace KosmiczniNajeźdźcy
 {
     public abstract class Entity : IDrawable, IMovable
     {
-        protected int health;
         protected Point pos;
         protected int pixelSize;
         public Point Pos { get => pos; }
@@ -23,9 +22,8 @@ namespace KosmiczniNajeźdźcy
         protected List<List<Square>> graphic = new List<List<Square>>();
         private Point prevPos;
 
-        public Entity(int health, Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic)
+        public Entity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic)
         {
-            this.health = health;
             this.pos = pos;
             this.pixelSize = pixelSize;
             this.coliderEnabled = true;
@@ -100,7 +98,6 @@ namespace KosmiczniNajeźdźcy
                 prevPos.X = x;
                 pos.X = x;
             }
-            needToRepaint = true;
         }
 
         public void MoveBy(int dx, int dy, bool checkBounds = true)
@@ -110,11 +107,7 @@ namespace KosmiczniNajeźdźcy
 
         virtual public void ReciveDamage(int damage)
         {
-            health -= damage;
-            if (health <= 0)
-            {
-                this.Die();
-            }
+            this.Die();
         }
         public abstract void Die();
 
