@@ -10,6 +10,7 @@ namespace KosmiczniNajeźdźcy
     {
         int drawingSize;
         Color color;
+        public Color Color => color;
         Point pos;
         public Square(int drawingSize, Color color, int x, int y)
         {

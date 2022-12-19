@@ -13,14 +13,14 @@ namespace KosmiczniNajeźdźcy
         protected Point pos;
         protected int pixelSize;
         public Point Pos { get => pos; }
-
+        private Point prevPos;
         protected int SizeX { get => graphic[0].Count() * (pixelSize+1); }
         protected int SizeY { get => graphic.Count() * (pixelSize+1); }
         protected bool coliderEnabled = true;
         protected bool allowUpDownMove = true;
         
         protected List<List<Square>> graphic = new List<List<Square>>();
-        private Point prevPos;
+        public List<List<Square>> Graphic => graphic;
 
         public Entity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic)
         {
@@ -65,7 +65,8 @@ namespace KosmiczniNajeźdźcy
             {
                 Undraw(g, prevPos);
             }
-            Draw(g, Pos);   
+            Draw(g, Pos);
+              
         }
 
         public void MoveTo(int x, int y)
