@@ -31,7 +31,7 @@ namespace KosmiczniNajeźdźcy
             {
                 for (int j = 1; j < 10; j++)
                 {
-                    enemies.Add(new TestEntity(new Point(60 * j + 10, 150+i*50), Color.Aqua));
+                    enemies.Add(new TestEntity(new Point(60 * j + 10, 150+i*50 ), Color.Aqua));
                 }
             }
             

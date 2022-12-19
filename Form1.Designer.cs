@@ -67,13 +67,13 @@
             // 
             this.startLabel.AutoSize = true;
             this.startLabel.BackColor = System.Drawing.Color.Transparent;
-            this.startLabel.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.startLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.startLabel.ForeColor = System.Drawing.Color.White;
-            this.startLabel.Location = new System.Drawing.Point(189, 371);
+            this.startLabel.Location = new System.Drawing.Point(46, 330);
             this.startLabel.Name = "startLabel";
-            this.startLabel.Size = new System.Drawing.Size(328, 19);
+            this.startLabel.Size = new System.Drawing.Size(617, 18);
             this.startLabel.TabIndex = 1;
-            this.startLabel.Text = "Naciśnij SPACE aby rozpocząć!\r\n";
+            this.startLabel.Text = "Nacisnij SPACE aby rozpoczac!\r\n";
             // 
             // startPanel
             // 
@@ -102,60 +102,60 @@
             // scoreNr2Label
             // 
             this.scoreNr2Label.AutoSize = true;
-            this.scoreNr2Label.Font = new System.Drawing.Font("MS Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreNr2Label.Location = new System.Drawing.Point(538, 39);
+            this.scoreNr2Label.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.scoreNr2Label.Location = new System.Drawing.Point(509, 41);
             this.scoreNr2Label.Name = "scoreNr2Label";
-            this.scoreNr2Label.Size = new System.Drawing.Size(73, 29);
+            this.scoreNr2Label.Size = new System.Drawing.Size(92, 18);
             this.scoreNr2Label.TabIndex = 5;
             this.scoreNr2Label.Text = "0000";
             // 
             // HiScoreNrLabel
             // 
             this.HiScoreNrLabel.AutoSize = true;
-            this.HiScoreNrLabel.Font = new System.Drawing.Font("MS Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.HiScoreNrLabel.Location = new System.Drawing.Point(274, 39);
+            this.HiScoreNrLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.HiScoreNrLabel.Location = new System.Drawing.Point(264, 41);
             this.HiScoreNrLabel.Name = "HiScoreNrLabel";
-            this.HiScoreNrLabel.Size = new System.Drawing.Size(73, 29);
+            this.HiScoreNrLabel.Size = new System.Drawing.Size(92, 18);
             this.HiScoreNrLabel.TabIndex = 4;
             this.HiScoreNrLabel.Text = "0000";
             // 
             // scoreNr1Label
             // 
             this.scoreNr1Label.AutoSize = true;
-            this.scoreNr1Label.Font = new System.Drawing.Font("MS Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreNr1Label.Location = new System.Drawing.Point(11, 39);
+            this.scoreNr1Label.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.scoreNr1Label.Location = new System.Drawing.Point(12, 41);
             this.scoreNr1Label.Name = "scoreNr1Label";
-            this.scoreNr1Label.Size = new System.Drawing.Size(73, 29);
+            this.scoreNr1Label.Size = new System.Drawing.Size(92, 18);
             this.scoreNr1Label.TabIndex = 3;
             this.scoreNr1Label.Text = "0000";
             // 
             // hiScoreLabel
             // 
             this.hiScoreLabel.AutoSize = true;
-            this.hiScoreLabel.Font = new System.Drawing.Font("MS Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.hiScoreLabel.Location = new System.Drawing.Point(274, 10);
+            this.hiScoreLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.hiScoreLabel.Location = new System.Drawing.Point(264, 9);
             this.hiScoreLabel.Name = "hiScoreLabel";
-            this.hiScoreLabel.Size = new System.Drawing.Size(133, 29);
+            this.hiScoreLabel.Size = new System.Drawing.Size(176, 18);
             this.hiScoreLabel.TabIndex = 2;
             this.hiScoreLabel.Text = "HI-SCORE";
             // 
             // scoreLabel2
             // 
             this.scoreLabel2.AutoSize = true;
-            this.scoreLabel2.Font = new System.Drawing.Font("MS Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreLabel2.Location = new System.Drawing.Point(538, 10);
+            this.scoreLabel2.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.scoreLabel2.Location = new System.Drawing.Point(509, 9);
             this.scoreLabel2.Name = "scoreLabel2";
-            this.scoreLabel2.Size = new System.Drawing.Size(133, 29);
+            this.scoreLabel2.Size = new System.Drawing.Size(176, 18);
             this.scoreLabel2.TabIndex = 1;
             this.scoreLabel2.Text = "SCORE<2>";
             // 
             // scoreLabel1
             // 
             this.scoreLabel1.AutoSize = true;
-            this.scoreLabel1.Font = new System.Drawing.Font("MS Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreLabel1.Location = new System.Drawing.Point(11, 10);
+            this.scoreLabel1.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.scoreLabel1.Location = new System.Drawing.Point(12, 9);
             this.scoreLabel1.Name = "scoreLabel1";
-            this.scoreLabel1.Size = new System.Drawing.Size(133, 29);
+            this.scoreLabel1.Size = new System.Drawing.Size(176, 18);
             this.scoreLabel1.TabIndex = 0;
             this.scoreLabel1.Text = "SCORE<1>";
             // 
