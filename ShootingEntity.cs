@@ -32,8 +32,8 @@ namespace KosmiczniNajeźdźcy
         }
         protected override void Die()
         {
-            this.graphic.Clear();
-            this.coliderEnabled = false;
+            base.Die();
+            // add explosion ???
         }
         public virtual Bullet Fire()
         {

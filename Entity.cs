@@ -14,13 +14,15 @@ namespace KosmiczniNajeźdźcy
         protected int pixelSize;
         public Point Pos { get => pos; }
         private Point prevPos;
-        protected int SizeX { get => graphic[0].Count() * (pixelSize+1); }
-        protected int SizeY { get => graphic.Count() * (pixelSize+1); }
+        protected int SizeX { get => Graphic[0].Count() * (pixelSize+1); }
+        protected int SizeY { get => Graphic.Count() * (pixelSize+1); }
         protected bool coliderEnabled = true;
+        protected bool isVisible = true;
+        protected bool doUndraw = false;
         protected bool allowUpDownMove = true;
         
         protected List<List<Square>> graphic = new List<List<Square>>();
-        public List<List<Square>> Graphic => graphic;
+        public virtual List<List<Square>> Graphic => graphic;
 
         public Entity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic)
         {
@@ -39,21 +41,21 @@ namespace KosmiczniNajeźdźcy
 
         private void Draw(Graphics g, Point pos)
         {
-            for (int x = 0; x < graphic.Count(); x++)
+            for (int x = 0; x < Graphic.Count(); x++)
             {
-                for (int y = 0; y < graphic[x].Count(); y++)
+                for (int y = 0; y < Graphic[x].Count(); y++)
                 {
-                    graphic[x][y].Draw(g, pos.X, pos.Y);
+                    Graphic[x][y].Draw(g, pos.X, pos.Y);
                 }
             }
         }
         private void Undraw(Graphics g, Point pos)
         {
-            for (int x = 0; x < graphic.Count(); x++)
+            for (int x = 0; x < Graphic.Count(); x++)
             {
-                for (int y = 0; y < graphic[x].Count(); y++)
+                for (int y = 0; y < Graphic[x].Count(); y++)
                 {
-                    graphic[x][y].UnDraw(g, pos.X, pos.Y);
+                    Graphic[x][y].UnDraw(g, pos.X, pos.Y);
                 }
 
             }
@@ -61,12 +63,22 @@ namespace KosmiczniNajeźdźcy
 
         virtual public void Refresh(Graphics g)
         {
-            if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
+            if (isVisible)
             {
-                Undraw(g, prevPos);
+                if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
+                {
+                    Undraw(g, prevPos);
+                }
+                Draw(g, Pos);
             }
-            Draw(g, Pos);
-              
+            else
+            {
+                if (doUndraw)
+                {
+                    doUndraw = false;
+                    Undraw(g, pos);
+                }
+            }       
         }
 
         public void MoveTo(int x, int y)
@@ -110,7 +122,12 @@ namespace KosmiczniNajeźdźcy
         {
             this.Die();
         }
-        protected abstract void Die();
+        protected virtual void Die() 
+        { 
+            isVisible = false;
+            doUndraw = true;
+            coliderEnabled = false;
+        }
 
         public bool isAt(int x, int y)
         {
@@ -118,11 +135,11 @@ namespace KosmiczniNajeźdźcy
             {
                 return false;
             }
-            for (int i = 0; i < graphic.Count(); i++)
+            for (int i = 0; i < Graphic.Count(); i++)
             {
-                for (int j = 0; j < graphic[i].Count(); j++)
+                for (int j = 0; j < Graphic[i].Count(); j++)
                 {
-                    if (graphic[i][j].isInBounds(x,y,Pos.X,Pos.Y))
+                    if (Graphic[i][j].isInBounds(x,y,Pos.X,Pos.Y))
                     {
                         return true;
                     }

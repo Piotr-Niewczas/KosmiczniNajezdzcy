@@ -18,11 +18,6 @@ namespace KosmiczniNajeźdźcy
             this.damage= damage;
         }
 
-        protected override void Die()
-        {
-            this.graphic.Clear();
-            this.coliderEnabled = false;
-        }
         public override void Refresh(Graphics g)
         {
             MoveBy(0, ySpeed, false);
