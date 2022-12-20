@@ -21,11 +21,6 @@ namespace KosmiczniNajeźdźcy
         public override void Refresh(Graphics g)
         {
             MoveBy(0, ySpeed, false);
-
-            //if (PosY < -10 || PosY > 1000)
-            //{
-
-            //}
             base.Refresh(g);
         }
     }

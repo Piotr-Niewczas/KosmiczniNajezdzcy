@@ -128,9 +128,14 @@ namespace KosmiczniNajeźdźcy
             MoveTo(this.Pos.X + dx, this.Pos.Y + dy, checkBounds);
         }
 
-        virtual public void ReciveDamage()
+        /// <summary>
+        /// Deals damage to entity
+        /// </summary>
+        /// <returns>0 when fatal damage, 1 if not</returns>
+        virtual public int ReciveDamage()
         {
             this.Die();
+            return 0;
         }
         protected virtual void Die() 
         { 
@@ -138,7 +143,13 @@ namespace KosmiczniNajeźdźcy
             coliderEnabled = false;
         }
 
-        public bool isAt(int x, int y)
+        /// <summary>
+        /// Is part of entity at this location
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns>True if is</returns>
+        public bool IsAt(int x, int y)
         {
             if (!coliderEnabled)
             {
@@ -157,6 +168,13 @@ namespace KosmiczniNajeźdźcy
             return false;
         }
 
+        /// <summary>
+        /// Generates 2D Square graphic from provided string
+        /// </summary>
+        /// <param name="str">String from Excel</param>
+        /// <param name="color">Color of all squares</param>
+        /// <param name="pixelSize">Size of each square</param>
+        /// <returns>2D List of squares</returns>
         protected static List<List<Square>> GetGraphicFromString(string str, Color color, int pixelSize)
         {
             List<List<Square>> tmp = new List<List<Square>>();
