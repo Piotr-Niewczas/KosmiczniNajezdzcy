@@ -40,41 +40,41 @@ namespace KosmiczniNajeźdźcy
         {
 
             if (e.KeyData == Keys.A) 
-                gc.vectToMoveBy = new int[] { gc.vectToMoveBy[0] - 1, gc.vectToMoveBy[1]};
+                gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0] - 1, gc.vectToMovePlayerBy[1]};
             if (e.KeyData == Keys.D)
-                gc.vectToMoveBy = new int[] { gc.vectToMoveBy[0] + 1 , gc.vectToMoveBy[1]};
+                gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0] + 1 , gc.vectToMovePlayerBy[1]};
             if (e.KeyData == Keys.W)
-                gc.vectToMoveBy = new int[] { gc.vectToMoveBy[0], gc.vectToMoveBy[1] - 1 };
+                gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0], gc.vectToMovePlayerBy[1] - 1 };
             if (e.KeyData == Keys.S)
-                gc.vectToMoveBy = new int[] { gc.vectToMoveBy[0], gc.vectToMoveBy[1] + 1 };
+                gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0], gc.vectToMovePlayerBy[1] + 1 };
 
-            if (gc.vectToMoveBy[0] > 1) gc.vectToMoveBy[0] = 1;
-            if (gc.vectToMoveBy[0] < -1) gc.vectToMoveBy[0] = -1;
-            if (gc.vectToMoveBy[1] > 1) gc.vectToMoveBy[1] = 1;
-            if (gc.vectToMoveBy[1] < -1) gc.vectToMoveBy[1] = -1;
+            if (gc.vectToMovePlayerBy[0] > 1) gc.vectToMovePlayerBy[0] = 1;
+            if (gc.vectToMovePlayerBy[0] < -1) gc.vectToMovePlayerBy[0] = -1;
+            if (gc.vectToMovePlayerBy[1] > 1) gc.vectToMovePlayerBy[1] = 1;
+            if (gc.vectToMovePlayerBy[1] < -1) gc.vectToMovePlayerBy[1] = -1;
 
             if (e.KeyData == Keys.Space)
-                gc.isFiring = true;
+                gc.fireButtonHeld = true;
 
         }
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.A)
-                gc.vectToMoveBy = new int[] { gc.vectToMoveBy[0] + 1, gc.vectToMoveBy[1] };
+                gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0] + 1, gc.vectToMovePlayerBy[1] };
             if (e.KeyData == Keys.D)
-                gc.vectToMoveBy = new int[] { gc.vectToMoveBy[0] - 1, gc.vectToMoveBy[1] };
+                gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0] - 1, gc.vectToMovePlayerBy[1] };
             if (e.KeyData == Keys.W)
-                gc.vectToMoveBy = new int[] { gc.vectToMoveBy[0], gc.vectToMoveBy[1] + 1 };
+                gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0], gc.vectToMovePlayerBy[1] + 1 };
             if (e.KeyData == Keys.S)
-                gc.vectToMoveBy = new int[] { gc.vectToMoveBy[0], gc.vectToMoveBy[1] - 1 };
+                gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0], gc.vectToMovePlayerBy[1] - 1 };
 
-            if (gc.vectToMoveBy[0] > 1) gc.vectToMoveBy[0] = 1;
-            if (gc.vectToMoveBy[0] < -1) gc.vectToMoveBy[0] = -1;
-            if (gc.vectToMoveBy[1] > 1) gc.vectToMoveBy[1] = 1;
-            if (gc.vectToMoveBy[1] < -1) gc.vectToMoveBy[1] = -1;
+            if (gc.vectToMovePlayerBy[0] > 1) gc.vectToMovePlayerBy[0] = 1;
+            if (gc.vectToMovePlayerBy[0] < -1) gc.vectToMovePlayerBy[0] = -1;
+            if (gc.vectToMovePlayerBy[1] > 1) gc.vectToMovePlayerBy[1] = 1;
+            if (gc.vectToMovePlayerBy[1] < -1) gc.vectToMovePlayerBy[1] = -1;
 
             if (e.KeyData == Keys.Space)
-                gc.isFiring = false;
+                gc.fireButtonHeld = false;
         }
         private void panel1_Paint(object sender, PaintEventArgs e)
         {

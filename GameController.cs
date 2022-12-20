@@ -18,15 +18,14 @@ namespace KosmiczniNajeźdźcy
         
         TestEntity player;
         List<TestEntity> enemies= new List<TestEntity>();
+        bool areEnemiesMovingRight = true;
+
         List<Bullet> playerBullets = new List<Bullet>();
-        public int[] vectToMoveBy = new int[] { 0, 0 };
-        public bool isFiring = false;
-        bool fireCooldownElapsed = true;
+        public int[] vectToMovePlayerBy = new int[] { 0, 0 };
+        public bool fireButtonHeld = false;
+        bool playerFireCooldownElapsed = true;
         public bool ogFireMode = true;
         public int player1Score = 0;
-
-        int enemyGroupXRight = 60 * 10 + 10;
-        int enemyGroupXLeft = 10;
 
         public void Start()
         {
@@ -50,7 +49,7 @@ namespace KosmiczniNajeźdźcy
         {
             int speed = 5;
 
-            player.MoveBy(vectToMoveBy[0] * speed, vectToMoveBy[1] * speed,true);
+            player.MoveBy(vectToMovePlayerBy[0] * speed, vectToMovePlayerBy[1] * speed,true);
 
             tmpCounter++;
             if (tmpCounter > 50)
@@ -90,7 +89,7 @@ namespace KosmiczniNajeźdźcy
                 }
 
             }
-            if (isFiring)
+            if (fireButtonHeld)
             {
                 PlayerFire();
             }
@@ -104,7 +103,7 @@ namespace KosmiczniNajeźdźcy
         }
         private void OnCooldownElapsed(Object? source, System.Timers.ElapsedEventArgs e)
         {
-            fireCooldownElapsed = true;
+            playerFireCooldownElapsed = true;
         }
         private void PlayerFire()
         {
@@ -117,9 +116,9 @@ namespace KosmiczniNajeźdźcy
             }
             else
             {
-                if (fireCooldownElapsed)
+                if (playerFireCooldownElapsed)
                 {
-                    fireCooldownElapsed = false;
+                    playerFireCooldownElapsed = false;
                     playerBullets.Add(player.Fire());
                     fireCooldown.Start();
                 }
@@ -127,7 +126,7 @@ namespace KosmiczniNajeźdźcy
             
         }
 
-        bool areEnemiesMovingRight = true;
+        
         private void MoveEnemies(Graphics e)
         {
             int stepSize = 30;
