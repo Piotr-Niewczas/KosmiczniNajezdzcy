@@ -81,7 +81,7 @@ namespace KosmiczniNajeźdźcy
             }       
         }
 
-        public void MoveTo(int x, int y)
+        public virtual void MoveTo(int x, int y)
         {
             MoveTo(x, y, true);
         }
@@ -113,7 +113,7 @@ namespace KosmiczniNajeźdźcy
             }
         }
 
-        public void MoveBy(int dx, int dy, bool checkBounds = true)
+        public virtual void MoveBy(int dx, int dy, bool checkBounds = true)
         {
             MoveTo(this.Pos.X + dx, this.Pos.Y + dy, checkBounds);
         }
