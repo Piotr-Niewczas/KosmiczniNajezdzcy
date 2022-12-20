@@ -57,7 +57,7 @@
             this.logoBox.BackColor = System.Drawing.Color.Black;
             this.logoBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.logoBox.Image = ((System.Drawing.Image)(resources.GetObject("logoBox.Image")));
-            this.logoBox.Location = new System.Drawing.Point(3, 3);
+            this.logoBox.Location = new System.Drawing.Point(0, 0);
             this.logoBox.Name = "logoBox";
             this.logoBox.Size = new System.Drawing.Size(694, 305);
             this.logoBox.TabIndex = 0;
