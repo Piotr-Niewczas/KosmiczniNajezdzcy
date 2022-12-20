@@ -14,15 +14,25 @@ namespace KosmiczniNajeźdźcy
         protected int pixelSize;
         public Point Pos { get => pos; }
         private Point prevPos;
-        protected int SizeX { get => Graphic[0].Count() * (pixelSize+1); }
-        protected int SizeY { get => Graphic.Count() * (pixelSize+1); }
+        public int SizeX { get => Graphic[0].Count() * (pixelSize+1); }
+        public int SizeY { get => Graphic.Count() * (pixelSize+1); }
         protected bool coliderEnabled = true;
-        protected bool isVisible = true;
-        protected bool doUndraw = false;
+        private bool isVisible = true;
+
+        private bool doUndraw = false;
         protected bool allowUpDownMove = true;
         
         protected List<List<Square>> graphic = new List<List<Square>>();
         public virtual List<List<Square>> Graphic => graphic;
+
+        protected bool IsVisible { 
+            get => isVisible; 
+            set 
+            {
+                if(value == false) doUndraw = true;
+                isVisible = value; 
+            } 
+        }
 
         public Entity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic)
         {
@@ -63,7 +73,7 @@ namespace KosmiczniNajeźdźcy
 
         virtual public void Refresh(Graphics g)
         {
-            if (isVisible)
+            if (IsVisible)
             {
                 if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
                 {
@@ -124,8 +134,7 @@ namespace KosmiczniNajeźdźcy
         }
         protected virtual void Die() 
         { 
-            isVisible = false;
-            doUndraw = true;
+            IsVisible = false;
             coliderEnabled = false;
         }
 

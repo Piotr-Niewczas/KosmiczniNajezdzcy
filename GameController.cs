@@ -24,12 +24,15 @@ namespace KosmiczniNajeźdźcy
         bool canFire = true;
         public int player1Score = 0;
 
+        int enemyGroupXRight = 60 * 10 + 10;
+        int enemyGroupXLeft = 10;
+
         public void Start()
         {
             player = new TestEntity( new Point(330, 680), Color.LightGreen);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
-                for (int j = 1; j < 10; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     enemies.Add(new TestEntity(new Point(60 * j + 10, 150+i*50 ), Color.Aqua));
                 }
@@ -43,19 +46,21 @@ namespace KosmiczniNajeźdźcy
 
             //enemies[0].GraduallyMoveTo(500, 500, 500);
         }
-
+        int tmpCounter = 0;
         public void Update(PaintEventArgs e)
         {
             int speed = 5;
 
             player.MoveBy(vectToMoveBy[0] * speed, vectToMoveBy[1] * speed,true);
 
-            Random rand = new Random();
+            tmpCounter++;
+            if (tmpCounter > 50)
+            {
+                tmpCounter = 0;
+                MoveEnemies(e.Graphics);
+            }
 
-            //if (rand.Next(0, 100) > 90)
-            //{
-            //    enemy.MoveBy(rand.Next(-5, 5), rand.Next(-5, 5));
-            //}
+            
             for (int bullet = 0; bullet < playerBullets.Count(); bullet++)
             {
                 int toDelete = -1;
@@ -105,7 +110,63 @@ namespace KosmiczniNajeźdźcy
             
         }
 
-        
-        
+        bool areEnemiesMovingRight = true;
+        private void MoveEnemies(Graphics e)
+        {
+            int stepSize = 30;
+            Entity rightmost = GetRightMostEnemy();
+            Entity leftmost = GetLeftMostEnemy(); 
+            int moveByX = 0, moveByY = 0;
+
+            if ((rightmost.Pos.X >= 700-rightmost.SizeX - stepSize) && areEnemiesMovingRight ||
+                (leftmost.Pos.X < 0+stepSize) && !areEnemiesMovingRight )
+            {
+                moveByY += stepSize;
+                areEnemiesMovingRight = !areEnemiesMovingRight;
+            }
+            else
+            {
+                if (areEnemiesMovingRight)
+                {
+                    moveByX += stepSize;
+                }
+                else
+                {
+                    moveByX -= stepSize;
+                }
+            }
+            foreach (var enemie in enemies)
+            {
+                enemie.MoveBy(moveByX, moveByY);
+            }
+        }
+        private Entity GetRightMostEnemy()
+        {
+            int max = int.MinValue;
+            Entity entity = enemies[0];
+            foreach (var enemy in enemies)
+            {
+                if (enemy.Pos.X > max)
+                {
+                    max = enemy.Pos.X;
+                    entity = enemy;
+                }
+            }
+            return entity;
+        }
+        private Entity GetLeftMostEnemy()
+        {
+            int min = int.MaxValue;
+            Entity entity = enemies[0];
+            foreach (var enemy in enemies)
+            {
+                if (enemy.Pos.X > min)
+                {
+                    min = enemy.Pos.X;
+                    entity = enemy;
+                }
+            }
+            return entity;
+        }
     }
 }

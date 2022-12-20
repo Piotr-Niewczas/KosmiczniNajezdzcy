@@ -8,15 +8,16 @@ using System.Transactions;
 
 namespace KosmiczniNajeźdźcy
 {
-    internal class TestEntity : ShootingEntity
+    internal class TestEntity : AnimShEntity
     {
         static string graphicStr = "0\t0\t1\t0\t0\t0\t0\t0\t1\t0\t0\r\n0\t0\t0\t1\t0\t0\t0\t1\t0\t0\t0\r\n0\t0\t1\t1\t1\t1\t1\t1\t1\t0\t0\r\n0\t1\t1\t0\t1\t1\t1\t0\t1\t1\t0\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t0\t1\t1\t1\t1\t1\t1\t1\t0\t1\r\n1\t0\t1\t0\t0\t0\t0\t0\t1\t0\t1\r\n0\t0\t0\t1\t1\t0\t1\t1\t0\t0\t0\r\n";
+        static string graphicStr2 = "0\t0\t1\t0\t0\t0\t0\t0\t1\t0\t0\r\n1\t0\t0\t1\t0\t0\t0\t1\t0\t0\t1\r\n1\t0\t1\t1\t1\t1\t1\t1\t1\t0\t1\r\n1\t1\t1\t0\t1\t1\t1\t0\t1\t1\t1\r\n0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\r\n0\t0\t1\t1\t1\t1\t1\t1\t1\t0\t0\r\n0\t0\t1\t0\t0\t0\t0\t0\t1\t0\t0\r\n0\t1\t0\t0\t0\t0\t0\t0\t0\t1\t0\r\n";
         //static int bulletDamage = 1;
-        
+
         Point gunExit = new Point(0,0);
 
         public TestEntity(Point pos, Color color) : 
-            base(pos, Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), 10)
+            base(pos, Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize),Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 10)
         {
         }
 
