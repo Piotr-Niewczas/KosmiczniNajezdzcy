@@ -14,7 +14,7 @@ namespace KosmiczniNajeźdźcy
 
         private static System.Timers.Timer fireCooldown;
 
-        public readonly static int PixelSize = 3;
+        public readonly static int PixelSize = 2;
         
         PlayerCannon player;
         List<AnimShEntity> enemies= new List<AnimShEntity>();
@@ -31,11 +31,11 @@ namespace KosmiczniNajeźdźcy
         {
         player = new PlayerCannon( new Point(330, 680));
         int i = 0;
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < 11; j++)
         {
-            enemies.Add(new EnemyCrab(new Point(60 * j + 10, 150+i*50 )));
-            enemies.Add(new EnemySquid(new Point(60 * j + 10 + 8, 150 + (i+1) * 50)));
-            enemies.Add(new EnemyEclipse(new Point(60 * j + 10, 150 + (i + 2) * 50)));
+            enemies.Add(new EnemyCrab(new Point((PixelSize*25) * j + 10, 150+i*50 )));
+            enemies.Add(new EnemySquid(new Point((PixelSize * 25) * j + 10+2*PixelSize, 150 + (i+1) * 50)));
+            enemies.Add(new EnemyEclipse(new Point((PixelSize * 25) * j + 10, 150 + (i + 2) * 50)));
         }
             
         fireCooldown = new System.Timers.Timer(450);
@@ -134,7 +134,7 @@ namespace KosmiczniNajeźdźcy
             Entity leftmost = GetLeftMostEnemy(); 
             int moveByX = 0, moveByY = 0;
 
-            if ((rightmost.Pos.X >= 700-rightmost.SizeX - stepSizeX) && areEnemiesMovingRight ||
+            if ((rightmost.Pos.X > 700-(13*PixelSize) - stepSizeX) && areEnemiesMovingRight ||
                 (leftmost.Pos.X < 0+stepSizeX) && !areEnemiesMovingRight )
             {
                 moveByY += stepSizeY;

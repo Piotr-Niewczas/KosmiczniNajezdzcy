@@ -8,7 +8,7 @@ namespace KosmiczniNajeźdźcy
 {
     internal class Bullet : Entity
     {
-        static string graphicStr = "1\r\n1\r\n";
+        static string graphicStr = "1\r\n1\r\n1\r\n";
         int ySpeed;
         int damage;
 

@@ -9,11 +9,11 @@ namespace KosmiczniNajeźdźcy
     internal class PlayerCannon : ShootingEntity
     {
         static string graphicStr = "0\t0\t0\t0\t0\t1\t0\t0\t0\t0\t0\r\n0\t0\t0\t0\t1\t1\t1\t0\t0\t0\t0\r\n0\t0\t0\t0\t1\t1\t1\t0\t0\t0\t0\r\n0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n";
-
+        static new int pixelSize = 3;
         static Color color = Color.Lime;
-        Point gunExit = new Point(Convert.ToInt32(6.5*GameController.PixelSize),0);
+        Point gunExit = new Point(Convert.ToInt32(6.5* pixelSize),0);
 
-        public PlayerCannon(Point pos) : base(pos, Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), 0)
+        public PlayerCannon(Point pos) : base(pos, Entity.GetGraphicFromString(graphicStr, color, pixelSize), 0)
         {
             allowUpDownMove= false;
         }
