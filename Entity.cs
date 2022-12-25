@@ -14,8 +14,8 @@ namespace KosmiczniNajeźdźcy
         protected int pixelSize;
         public Point Pos { get => pos; }
         private Point prevPos;
-        public int SizeX { get => Graphic[0].Count() * (pixelSize+1); }
-        public int SizeY { get => Graphic.Count() * (pixelSize+1); }
+        public int SizeX { get => Graphic[0].Count() * (pixelSize+1) +1; } // +1 accounts for the last pixel
+        public int SizeY { get => Graphic.Count() * (pixelSize+1) +1; }
         protected bool coliderEnabled = true;
         private bool isVisible = true;
 
@@ -181,31 +181,31 @@ namespace KosmiczniNajeźdźcy
             List<string> rows = str.Split("\r\n").ToList();
             int x = 0;
             foreach (var row in rows)
-            {
-                int y = 0;
-                List<string> cols = row.Split("\t").ToList();
-                List<Square> squareCols = new List<Square>();
-                foreach (var col in cols)
+            {     
+                if (row != "")
                 {
-                    Color tmpColor;
-                    if (col == "1")
+                    int y = 0;
+                    List<string> cols = row.Split("\t").ToList();
+                    List<Square> squareCols = new List<Square>();
+                    foreach (var col in cols)
                     {
-                        tmpColor = color;
+                        Color tmpColor;
+                        if (col == "1")
+                        {
+                            tmpColor = color;
+                        }
+                        else
+                        {
+                            tmpColor = Color.Transparent;
+                        }
+                        Square tmpSquare = new Square(pixelSize + 1, tmpColor, y + y * pixelSize, x + x * pixelSize);
+                        squareCols.Add(tmpSquare);
+                        y++;
                     }
-                    else
-                    {
-                        tmpColor = Color.Transparent;
-                    }
-                    Square tmpSquare = new Square(pixelSize+1, tmpColor, y + y * pixelSize, x + x * pixelSize);
-                    squareCols.Add(tmpSquare);
-                    y++;
-                }
-                tmp.Add(squareCols);
-                x++;
+                    tmp.Add(squareCols);
+                    x++;
+                }            
             }
-
-            
-
             return tmp;
         }
 
