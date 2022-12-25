@@ -16,8 +16,8 @@ namespace KosmiczniNajeźdźcy
 
         public readonly static int PixelSize = 3;
         
-        TestEntity player;
-        List<TestEntity> enemies= new List<TestEntity>();
+        PlayerCannon player;
+        List<AnimShEntity> enemies= new List<AnimShEntity>();
         bool areEnemiesMovingRight = true;
 
         List<Bullet> playerBullets = new List<Bullet>();
@@ -29,20 +29,19 @@ namespace KosmiczniNajeźdźcy
 
         public void Start()
         {
-            player = new TestEntity( new Point(330, 680), Color.LightGreen);
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    enemies.Add(new TestEntity(new Point(60 * j + 10, 150+i*50 ), Color.Aqua));
-                }
-            }
+        player = new PlayerCannon( new Point(330, 680));
+        int i = 0;
+        for (int j = 0; j < 10; j++)
+        {
+            enemies.Add(new EnemyCrab(new Point(60 * j + 10, 150+i*50 )));
+            enemies.Add(new EnemySquid(new Point(60 * j + 10 + 8, 150 + (i+1) * 50)));
+            enemies.Add(new EnemyEclipse(new Point(60 * j + 10, 150 + (i + 2) * 50)));
+        }
             
-
-            fireCooldown = new System.Timers.Timer(450);
-            fireCooldown.Elapsed += OnCooldownElapsed;
-            fireCooldown.AutoReset = false;
-            fireCooldown.Enabled = false;
+        fireCooldown = new System.Timers.Timer(450);
+        fireCooldown.Elapsed += OnCooldownElapsed;
+        fireCooldown.AutoReset = false;
+        fireCooldown.Enabled = false;
         }
         int tmpCounter = 0; // TODO:        DELETE
         public void Update(PaintEventArgs e)
@@ -129,26 +128,27 @@ namespace KosmiczniNajeźdźcy
         
         private void MoveEnemies(Graphics e)
         {
-            int stepSize = 30;
+            int stepSizeX = 15;
+            int stepSizeY = 30;
             Entity rightmost = GetRightMostEnemy();
             Entity leftmost = GetLeftMostEnemy(); 
             int moveByX = 0, moveByY = 0;
 
-            if ((rightmost.Pos.X >= 700-rightmost.SizeX - stepSize) && areEnemiesMovingRight ||
-                (leftmost.Pos.X < 0+stepSize) && !areEnemiesMovingRight )
+            if ((rightmost.Pos.X >= 700-rightmost.SizeX - stepSizeX) && areEnemiesMovingRight ||
+                (leftmost.Pos.X < 0+stepSizeX) && !areEnemiesMovingRight )
             {
-                moveByY += stepSize;
+                moveByY += stepSizeY;
                 areEnemiesMovingRight = !areEnemiesMovingRight;
             }
             else
             {
                 if (areEnemiesMovingRight)
                 {
-                    moveByX += stepSize;
+                    moveByX += stepSizeX;
                 }
                 else
                 {
-                    moveByX -= stepSize;
+                    moveByX -= stepSizeX;
                 }
             }
             foreach (var enemie in enemies)

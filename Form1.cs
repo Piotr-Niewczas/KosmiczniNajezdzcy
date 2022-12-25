@@ -91,7 +91,7 @@ namespace KosmiczniNajeźdźcy
                 gameStarted = true;
                 scorePanel.Enabled = true;
                 scorePanel.Visible = true;
-                
+                gc.fireButtonHeld = false;
             }
         }
     }
