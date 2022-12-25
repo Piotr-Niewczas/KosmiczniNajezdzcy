@@ -36,9 +36,10 @@ namespace KosmiczniNajeźdźcy
             base.Die();
             // add explosion ???
         }
-        public virtual Bullet Fire()
+        public virtual Bullet Fire(Color bulletColor)
         {
-            return new Bullet(yBulletSpeed, Pos.X + GunExit.X, Pos.Y + GunExit.Y, bulletDamage,GameController.PixelSize, Color.White);
+            return new Bullet(yBulletSpeed, Pos.X + GunExit.X, Pos.Y + GunExit.Y, bulletDamage,GameController.PixelSize, bulletColor);
+            
         }
 
 
