@@ -10,7 +10,7 @@ namespace KosmiczniNajeźdźcy
     {
         static readonly string graphicStr = "0\t0\t1\t0\t0\t0\t0\t0\t1\t0\t0\r\n0\t0\t0\t1\t0\t0\t0\t1\t0\t0\t0\r\n0\t0\t1\t1\t1\t1\t1\t1\t1\t0\t0\r\n0\t1\t1\t0\t1\t1\t1\t0\t1\t1\t0\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t0\t1\t1\t1\t1\t1\t1\t1\t0\t1\r\n1\t0\t1\t0\t0\t0\t0\t0\t1\t0\t1\r\n0\t0\t0\t1\t1\t0\t1\t1\t0\t0\t0\r\n";
         static readonly string graphicStr2 = "0\t0\t1\t0\t0\t0\t0\t0\t1\t0\t0\r\n1\t0\t0\t1\t0\t0\t0\t1\t0\t0\t1\r\n1\t0\t1\t1\t1\t1\t1\t1\t1\t0\t1\r\n1\t1\t1\t0\t1\t1\t1\t0\t1\t1\t1\r\n0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\r\n0\t0\t1\t1\t1\t1\t1\t1\t1\t0\t0\r\n0\t0\t1\t0\t0\t0\t0\t0\t1\t0\t0\r\n0\t1\t0\t0\t0\t0\t0\t0\t0\t1\t0\r\n";
-        static readonly Color color = Color.Aqua;
+        public static readonly Color color = Color.Aqua;
         Point gunExit = new Point(5*GameController.PixelSize, 8*GameController.PixelSize);
 
         public EnemyCrab(Point pos) :
@@ -26,7 +26,7 @@ namespace KosmiczniNajeźdźcy
     {
         static readonly string graphicStr = "0\t0\t0\t1\t1\t0\t0\t0\r\n0\t0\t1\t1\t1\t1\t0\t0\r\n0\t1\t1\t1\t1\t1\t1\t0\r\n1\t1\t0\t1\t1\t0\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\r\n0\t0\t1\t0\t0\t1\t0\t0\r\n0\t1\t0\t1\t1\t0\t1\t0\r\n1\t0\t1\t0\t0\t1\t0\t1\r\n";
         static readonly string graphicStr2 = "0\t0\t0\t1\t1\t0\t0\t0\r\n0\t0\t1\t1\t1\t1\t0\t0\r\n0\t1\t1\t1\t1\t1\t1\t0\r\n1\t1\t0\t1\t1\t0\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\r\n0\t1\t0\t1\t1\t0\t1\t0\r\n1\t0\t0\t0\t0\t0\t0\t1\r\n0\t1\t0\t0\t0\t0\t1\t0\r\n";
-        static readonly Color color = Color.HotPink;
+        public static readonly Color color = Color.HotPink;
         Point gunExit = new Point(4 * GameController.PixelSize, 8 * GameController.PixelSize);
 
         public EnemySquid(Point pos) :
@@ -42,7 +42,7 @@ namespace KosmiczniNajeźdźcy
     {
         static readonly string graphicStr = "0\t0\t0\t0\t1\t1\t1\t1\t0\t0\t0\t0\r\n0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t0\t0\t1\t1\t0\t0\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n0\t0\t0\t1\t1\t0\t0\t1\t1\t0\t0\t0\r\n0\t0\t1\t1\t0\t1\t1\t0\t1\t1\t0\t0\r\n1\t1\t0\t0\t0\t0\t0\t0\t0\t0\t1\t1\r\n";
         static readonly string graphicStr2 = "0\t0\t0\t0\t1\t1\t1\t1\t0\t0\t0\t0\r\n0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t0\t0\t1\t1\t0\t0\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n0\t0\t1\t1\t1\t0\t0\t1\t1\t1\t0\t0\r\n0\t1\t1\t0\t0\t1\t1\t0\t0\t1\t1\t0\r\n0\t0\t1\t1\t0\t0\t0\t0\t1\t1\t0\t0\r\n";
-        static readonly Color color = Color.BlueViolet;
+        public static readonly Color color = Color.BlueViolet;
         Point gunExit = new Point(6 * GameController.PixelSize, 8 * GameController.PixelSize);
 
         public EnemyEclipse(Point pos) :
