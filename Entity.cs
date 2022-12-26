@@ -159,7 +159,7 @@ namespace KosmiczniNajeźdźcy
             {
                 for (int j = 0; j < Graphic[i].Count(); j++)
                 {
-                    if (Graphic[i][j].isInBounds(x,y,Pos.X,Pos.Y))
+                    if (Graphic[i][j].Color != Color.Transparent && Graphic[i][j].isInBounds(x,y,Pos.X,Pos.Y)) // if target pixel not transpartent (abscent) and is there
                     {
                         return true;
                     }
