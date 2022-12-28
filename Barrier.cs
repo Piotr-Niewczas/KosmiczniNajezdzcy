@@ -24,7 +24,7 @@ namespace KosmiczniNajeźdźcy
         }
 
         /// <summary>
-        /// 
+        /// Makes parts of graphics transparent to show damage to barrier
         /// </summary>
         /// <param name="x">X where bullet hit</param>
         /// <param name="y">Y where bullet hit</param>
