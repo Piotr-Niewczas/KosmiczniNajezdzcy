@@ -10,20 +10,21 @@ namespace KosmiczniNajeźdźcy
     {
         int drawingSize;
         Color color;
-        public Color Color => color;
+        
         Point pos;
         public Square(int drawingSize, Color color, int x, int y)
         {
             this.drawingSize = drawingSize;
-            this.color = color;
+            this.Color = color;
             pos = new Point(x, y);
         }
 
         public Point Pos { get => pos; }
+        public Color Color { get => color; set => color = value; }
 
         public void Draw(Graphics g, int offsetX, int offsetY)
         {
-            ActualDraw(g, color, offsetX, offsetY);
+            ActualDraw(g, Color, offsetX, offsetY);
         }
         public void UnDraw(Graphics g, int offsetX, int offsetY)
         {
@@ -38,6 +39,7 @@ namespace KosmiczniNajeźdźcy
                 myBrush.Dispose();
             }
         }
+
         public bool isInBounds(int x, int y, int offsetX, int offsetY)
         {
             for (int i = 0; i < drawingSize; i++)

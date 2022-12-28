@@ -23,6 +23,7 @@ namespace KosmiczniNajeźdźcy
         protected bool allowUpDownMove = true;
         
         protected List<List<Square>> graphic = new List<List<Square>>();
+        private List<List<Square>> clearingGraphic = new List<List<Square>>();
         public virtual List<List<Square>> Graphic => graphic;
 
         protected bool IsVisible { 
@@ -33,6 +34,14 @@ namespace KosmiczniNajeźdźcy
                 isVisible = value; 
             } 
         }
+        protected bool DoUndraw
+        {
+            get => doUndraw;
+            set
+            {
+                if(value == true) doUndraw = true;
+            }
+        }
 
         public Entity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic)
         {
@@ -42,6 +51,7 @@ namespace KosmiczniNajeźdźcy
             this.allowUpDownMove = allowUpDownMove;
             this.graphic = graphic;
             this.prevPos = pos;
+
         }
 
         ~Entity()
@@ -75,9 +85,11 @@ namespace KosmiczniNajeźdźcy
         {
             if (IsVisible)
             {
-                if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
+                if (prevPos.X != Pos.X || prevPos.Y != Pos.Y || doUndraw)
                 {
                     Undraw(g, prevPos);
+                    Debug.Write(this.GetType().Name);
+                    doUndraw = false;
                 }
                 Draw(g, Pos);
             }
@@ -128,14 +140,21 @@ namespace KosmiczniNajeźdźcy
             MoveTo(this.Pos.X + dx, this.Pos.Y + dy, checkBounds);
         }
 
+
         /// <summary>
         /// Deals damage to entity
         /// </summary>
+        /// <param name="bulletX"></param>
+        /// <param name="bulletY"></param>
         /// <returns>0 when fatal damage, 1 if not</returns>
-        virtual public int ReciveDamage()
+        virtual public int ReciveDamage(int bulletX, int bulletY)
         {
             this.Die();
             return 0;
+        }
+        public int ReciveDamage()
+        {
+            return ReciveDamage(0, 0);
         }
         protected virtual void Die() 
         { 

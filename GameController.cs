@@ -28,16 +28,20 @@ namespace KosmiczniNajeźdźcy
         public bool ogFireMode = true;
         public int player1Score = 0;
 
+        List<Barrier> barriers = new List<Barrier>();
+
         public void Start()
         {
         player = new PlayerCannon( new Point(330, 680));
         int i = 0;
-        for (int j = 0; j < 11; j++)
-        {
-            enemies.Add(new EnemyCrab(new Point((PixelSize*25) * j + 10, 150+i*50 )));
-            enemies.Add(new EnemySquid(new Point((PixelSize * 25) * j + 10+2*PixelSize, 150 + (i+1) * 50)));
-            enemies.Add(new EnemyEclipse(new Point((PixelSize * 25) * j + 10, 150 + (i + 2) * 50)));
-        }
+            //for (int j = 0; j < 11; j++)
+            //{
+            //    enemies.Add(new EnemyCrab(new Point((PixelSize*25) * j + 10, 150+i*50 )));
+            //    enemies.Add(new EnemySquid(new Point((PixelSize * 25) * j + 10+2*PixelSize, 150 + (i+1) * 50)));
+            //    enemies.Add(new EnemyEclipse(new Point((PixelSize * 25) * j + 10, 150 + (i + 2) * 50)));
+            //}
+
+            barriers.Add(new Barrier(new Point(200, 600), 2));
             
         fireCooldown = new System.Timers.Timer(450);
         fireCooldown.Elapsed += OnCooldownElapsed;
@@ -62,33 +66,12 @@ namespace KosmiczniNajeźdźcy
                 tmpCounter = 0;
                 MoveEnemies(e.Graphics);
             }
-
-            
+           
             for (int bullet = 0; bullet < playerBullets.Count(); bullet++) // Update player bullets
             {
-                int toDelete = -1;
-                playerBullets[bullet].Refresh(e.Graphics);
 
-                
-                if (playerBullets[bullet].Pos.Y < 70) // check if bullet has left upper bounds
-                {
-                    toDelete = bullet;
-                }
-                for (int enemy = 0; enemy < enemies.Count(); enemy++) // chech if bullet is in one of the enemies
-                {
-                    
-                    if (enemies[enemy].IsAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
-                    {
-                        player1Score += enemies[enemy].PointVal;
-                        if (enemies[enemy].ReciveDamage() == 0)
-                        {
-                            enemies.RemoveAt(enemy);
-                        }
-                        
-                        toDelete = bullet;
-                    } 
-                }
-                if (toDelete != -1)
+                int toDelete = CheckPlayerBullets(bullet, e);
+                if (toDelete != -1) // remove collided bullet
                 {
                     playerBullets.RemoveAt(toDelete);
                 }
@@ -110,8 +93,49 @@ namespace KosmiczniNajeźdźcy
             {
                 bullet.Refresh(e.Graphics);
             }
-            
-            
+
+            foreach (var barrier in barriers)
+            {
+                barrier.Refresh(e.Graphics);
+            }
+
+        }
+
+        private int CheckPlayerBullets(int bullet, PaintEventArgs e)
+        {
+            int ifNotHitValue = -1;
+            playerBullets[bullet].Refresh(e.Graphics);
+
+
+            if (playerBullets[bullet].Pos.Y < 70) // check if bullet has left upper bounds
+            {
+                return bullet;
+            }
+            for (int enemy = 0; enemy < enemies.Count(); enemy++) // chech if bullet is in one of the enemies
+            {
+
+                if (enemies[enemy].IsAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
+                {
+                    player1Score += enemies[enemy].PointVal;
+                    if (enemies[enemy].ReciveDamage() == 0)
+                    {
+                        enemies.RemoveAt(enemy);
+                    }
+
+                    return bullet;
+                }
+            }
+
+            foreach (var barrier in barriers) // check for collisions with barriers
+            {
+                if (barrier.IsAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
+                {         
+                    barrier.ReciveDamage(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y);
+                    return bullet;
+                }
+            }
+
+            return ifNotHitValue;
         }
         private void OnCooldownElapsed(Object? source, System.Timers.ElapsedEventArgs e)
         {
@@ -141,33 +165,36 @@ namespace KosmiczniNajeźdźcy
         
         private void MoveEnemies(Graphics e)
         {
-            int stepSizeX = 10;
-            int stepSizeY = 30;
-            Entity rightmost = GetRightMostEnemy();
-            Entity leftmost = GetLeftMostEnemy(); 
-            int moveByX = 0, moveByY = 0;
+            if (enemies.Count != 0)
+            {
+                int stepSizeX = 10;
+                int stepSizeY = 30;
+                Entity rightmost = GetRightMostEnemy();
+                Entity leftmost = GetLeftMostEnemy();
+                int moveByX = 0, moveByY = 0;
 
-            if ((rightmost.Pos.X > 700-(13*PixelSize) - stepSizeX) && areEnemiesMovingRight ||
-                (leftmost.Pos.X < 0+stepSizeX) && !areEnemiesMovingRight )
-            {
-                moveByY += stepSizeY;
-                areEnemiesMovingRight = !areEnemiesMovingRight;
-            }
-            else
-            {
-                if (areEnemiesMovingRight)
+                if ((rightmost.Pos.X > 700 - (13 * PixelSize) - stepSizeX) && areEnemiesMovingRight ||
+                    (leftmost.Pos.X < 0 + stepSizeX) && !areEnemiesMovingRight)
                 {
-                    moveByX += stepSizeX;
+                    moveByY += stepSizeY;
+                    areEnemiesMovingRight = !areEnemiesMovingRight;
                 }
                 else
                 {
-                    moveByX -= stepSizeX;
+                    if (areEnemiesMovingRight)
+                    {
+                        moveByX += stepSizeX;
+                    }
+                    else
+                    {
+                        moveByX -= stepSizeX;
+                    }
                 }
-            }
-            foreach (var enemie in enemies)
-            {
-                enemie.MoveBy(moveByX, moveByY);
-            }
+                foreach (var enemie in enemies)
+                {
+                    enemie.MoveBy(moveByX, moveByY);
+                }
+            }   
         }
         private Entity GetRightMostEnemy()
         {
