@@ -16,7 +16,7 @@ namespace KosmiczniNajeźdźcy
         private Point prevPos;
         public int SizeX { get => Pixels[0].Count() * (pixelSize+1) +1; } // +1 accounts for the last pixel
         public int SizeY { get => Pixels.Count() * (pixelSize+1) +1; }
-        protected bool coliderEnabled = true;
+        protected bool colliderEnabled = true;
         protected bool allowUpDownMove = true;
         
         protected List<List<Square>> pixels = new List<List<Square>>();
@@ -50,7 +50,7 @@ namespace KosmiczniNajeźdźcy
         {
             this.pos = pos;
             this.pixelSize = pixelSize;
-            this.coliderEnabled = true;
+            this.colliderEnabled = true;
             this.allowUpDownMove = allowUpDownMove;
             this.pixels = pixels;
             this.prevPos = pos;
@@ -162,7 +162,7 @@ namespace KosmiczniNajeźdźcy
         protected void Die() 
         { 
             IsVisible = false;
-            coliderEnabled = false;
+            colliderEnabled = false;
             isDead = true;
         }
 
@@ -174,7 +174,7 @@ namespace KosmiczniNajeźdźcy
         /// <returns>True if is</returns>
         public bool IsAt(int x, int y)
         {
-            if (!coliderEnabled)
+            if (!colliderEnabled)
             {
                 return false;
             }
