@@ -23,7 +23,7 @@ namespace KosmiczniNajeźdźcy
         {
             if (tombstone == null)
             {
-                tombstone = new Tombstone(victim.Graphic, pos);
+                tombstone = new Tombstone(victim.Pixels, pos);
             }
             tombstone.Refresh(g);
         }

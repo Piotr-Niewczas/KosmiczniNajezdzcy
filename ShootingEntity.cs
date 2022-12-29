@@ -31,11 +31,6 @@ namespace KosmiczniNajeźdźcy
             get;
         }
         protected abstract int yBulletSpeed { get; }
-        protected override void Die()
-        {
-            base.Die();
-            // add explosion ???
-        }
         public virtual Bullet Fire(Color bulletColor)
         {
             return new Bullet(yBulletSpeed, Pos.X + GunExit.X, Pos.Y + GunExit.Y, bulletDamage,GameController.PixelSize, bulletColor);

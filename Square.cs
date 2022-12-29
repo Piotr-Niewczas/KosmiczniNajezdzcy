@@ -21,6 +21,7 @@ namespace KosmiczniNajeźdźcy
 
         public Point Pos { get => pos; }
         public Color Color { get => color; set => color = value; }
+        public int DrawingSize { get => drawingSize;}
 
         public void Draw(Graphics g, int offsetX, int offsetY)
         {
@@ -28,7 +29,7 @@ namespace KosmiczniNajeźdźcy
         }
         public void UnDraw(Graphics g, int offsetX, int offsetY)
         {
-            ActualDraw(g, Color.Transparent, offsetX, offsetY);
+            ActualDraw(g, Color.Black, offsetX, offsetY);
         }
         private void ActualDraw(Graphics g, Color color, int offsetX, int offsetY)
         {

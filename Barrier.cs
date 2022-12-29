@@ -41,11 +41,11 @@ namespace KosmiczniNajeźdźcy
             }
 
             int squareX = 0, squareY = 0;
-            for (int i = 0; i < Graphic.Count(); i++)
+            for (int i = 0; i < Pixels.Count(); i++)
             {
-                for (int j = 0; j < Graphic[i].Count(); j++)
+                for (int j = 0; j < Pixels[i].Count(); j++)
                 {
-                    if (Graphic[i][j].Color != Color.Transparent && Graphic[i][j].isInBounds(x, y, Pos.X, Pos.Y)) 
+                    if (Pixels[i][j].Color != Color.Transparent && Pixels[i][j].isInBounds(x, y, Pos.X, Pos.Y)) 
                     {
                         squareX = j;
                         squareY = i;
@@ -116,9 +116,9 @@ namespace KosmiczniNajeźdźcy
         }
         void DamageGraphic(int x, int y)
         {
-            if (x >= 0 && x < graphic[0].Count && y >= 0 && y < graphic.Count)
+            if (x >= 0 && x < pixels[0].Count && y >= 0 && y < pixels.Count)
             {
-                graphic[y][x].Color = Color.Transparent;
+                pixels[y][x].Color = Color.Transparent;
             }
         }
     }

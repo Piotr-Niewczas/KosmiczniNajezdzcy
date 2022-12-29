@@ -14,18 +14,18 @@ namespace KosmiczniNajeźdźcy
         protected int pixelSize;
         public Point Pos { get => pos; }
         private Point prevPos;
-        public int SizeX { get => Graphic[0].Count() * (pixelSize+1) +1; } // +1 accounts for the last pixel
-        public int SizeY { get => Graphic.Count() * (pixelSize+1) +1; }
+        public int SizeX { get => Pixels[0].Count() * (pixelSize+1) +1; } // +1 accounts for the last pixel
+        public int SizeY { get => Pixels.Count() * (pixelSize+1) +1; }
         protected bool coliderEnabled = true;
-        private bool isVisible = true;
-
-        private bool doUndraw = false;
         protected bool allowUpDownMove = true;
         
-        protected List<List<Square>> graphic = new List<List<Square>>();
-        private List<List<Square>> clearingGraphic = new List<List<Square>>();
-        public virtual List<List<Square>> Graphic => graphic;
+        protected List<List<Square>> pixels = new List<List<Square>>();
+        public virtual List<List<Square>> Pixels => pixels;
 
+        private bool isDead = false;
+        public bool IsDead { get => isDead; }
+
+        private bool isVisible = true;
         protected bool IsVisible { 
             get => isVisible; 
             set 
@@ -34,6 +34,7 @@ namespace KosmiczniNajeźdźcy
                 isVisible = value; 
             } 
         }
+        private bool doUndraw = false;
         protected bool DoUndraw
         {
             get => doUndraw;
@@ -43,39 +44,37 @@ namespace KosmiczniNajeźdźcy
             }
         }
 
-        public Entity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic)
+        
+
+        public Entity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> pixels)
         {
             this.pos = pos;
             this.pixelSize = pixelSize;
             this.coliderEnabled = true;
             this.allowUpDownMove = allowUpDownMove;
-            this.graphic = graphic;
+            this.pixels = pixels;
             this.prevPos = pos;
 
         }
 
-        ~Entity()
-        {
-            Die();
-        }
 
         private void Draw(Graphics g, Point pos)
         {
-            for (int x = 0; x < Graphic.Count(); x++)
+            for (int x = 0; x < Pixels.Count(); x++)
             {
-                for (int y = 0; y < Graphic[x].Count(); y++)
+                for (int y = 0; y < Pixels[x].Count(); y++)
                 {
-                    Graphic[x][y].Draw(g, pos.X, pos.Y);
+                    Pixels[x][y].Draw(g, pos.X, pos.Y);
                 }
             }
         }
         private void Undraw(Graphics g, Point pos)
         {
-            for (int x = 0; x < Graphic.Count(); x++)
+            for (int x = 0; x < Pixels.Count(); x++)
             {
-                for (int y = 0; y < Graphic[x].Count(); y++)
+                for (int y = 0; y < Pixels[x].Count(); y++)
                 {
-                    Graphic[x][y].UnDraw(g, pos.X, pos.Y);
+                    Pixels[x][y].UnDraw(g, pos.X, pos.Y);
                 }
 
             }
@@ -90,9 +89,10 @@ namespace KosmiczniNajeźdźcy
                     doUndraw = false;
                     Undraw(g, Pos);
                 }
-                if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
+                if (prevPos != Pos)
                 {
                     Undraw(g, prevPos);
+                    prevPos = Pos;
                 }
                 Draw(g, Pos);
             }
@@ -113,29 +113,29 @@ namespace KosmiczniNajeźdźcy
 
         protected void MoveTo(int x, int y, bool checkBounds)
         {
-            if (checkBounds)
+            if (!IsDead)
             {
-                if (!(x < 0 || x > 700 - SizeX))
+                if (checkBounds)
                 {
-                    prevPos.X = x;
+                    prevPos = Pos;
+                    if (!(x < 0 || x > 700 - SizeX))
+                    {
+                        pos.X = x;
+                    }
+                    if (!(!allowUpDownMove || y < 70 || y > 800 - SizeY))
+                    {
+                        pos.Y = y;
+                    }
+                }
+                else
+                {
+                    if (allowUpDownMove)
+                    {
+                        pos.Y = y;
+                    }
                     pos.X = x;
                 }
-                if (!(!allowUpDownMove || y < 70 || y > 800 - SizeY))
-                {
-                    prevPos.Y = y;
-                    pos.Y = y;
-                }
-            }
-            else
-            {
-                if (allowUpDownMove)
-                {
-                    prevPos.Y = y;
-                    pos.Y = y;
-                }
-                prevPos.X = x;
-                pos.X = x;
-            }
+            }  
         }
 
         public virtual void MoveBy(int dx, int dy, bool checkBounds = true)
@@ -159,10 +159,11 @@ namespace KosmiczniNajeźdźcy
         {
             return ReciveDamage(0, 0);
         }
-        protected virtual void Die() 
+        protected void Die() 
         { 
             IsVisible = false;
             coliderEnabled = false;
+            isDead = true;
         }
 
         /// <summary>
@@ -177,11 +178,11 @@ namespace KosmiczniNajeźdźcy
             {
                 return false;
             }
-            for (int i = 0; i < Graphic.Count(); i++)
+            for (int i = 0; i < Pixels.Count(); i++)
             {
-                for (int j = 0; j < Graphic[i].Count(); j++)
+                for (int j = 0; j < Pixels[i].Count(); j++)
                 {
-                    if (Graphic[i][j].Color != Color.Transparent && Graphic[i][j].isInBounds(x,y,Pos.X,Pos.Y)) // if target pixel not transpartent (abscent) and is there
+                    if (Pixels[i][j].Color != Color.Transparent && Pixels[i][j].isInBounds(x,y,Pos.X,Pos.Y)) // if target pixel not transpartent (abscent) and is there
                     {
                         return true;
                     }

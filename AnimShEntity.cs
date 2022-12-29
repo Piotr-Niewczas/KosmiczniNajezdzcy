@@ -15,25 +15,23 @@ namespace KosmiczniNajeźdźcy
             this.graphic2 = graphic2;
         }
 
-        public override List<List<Square>> Graphic
+        public override List<List<Square>> Pixels
         {
             get
             {
                 if (secGrapActive) return graphic2;
-                else return graphic;
+                else return pixels;
             }
         }
         public override void MoveBy(int dx, int dy, bool checkBounds = true)
         {
             base.MoveBy(dx, dy, checkBounds);
             secGrapActive = !secGrapActive;
-            base.MoveBy(0, 0, checkBounds);
         }
         public override void MoveTo(int x, int y)
         {
             base.MoveTo(x, y);
             secGrapActive = !secGrapActive;
-            base.MoveTo(x, y);
         }
     }
 }

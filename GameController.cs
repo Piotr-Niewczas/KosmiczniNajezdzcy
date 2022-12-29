@@ -12,15 +12,16 @@ namespace KosmiczniNajeźdźcy
 {
     public class GameController
     {
+        private Bitmap playArea = new Bitmap(700, 800);
 
         private static System.Timers.Timer playerFireCooldown;
         private static System.Timers.Timer enemyTick;
 
         public readonly static int PixelSize = 2;
         
-        List<AnimShEntity> enemies= new List<AnimShEntity>();
+        List<AnimShEntity> enemies= new();
         bool areEnemiesMovingRight = true;
-        List<Bullet> enemyBullets = new List<Bullet>();
+        List<Bullet> enemyBullets = new();
         
         PlayerCannon player;
         List<Bullet> playerBullets = new List<Bullet>();
@@ -29,6 +30,7 @@ namespace KosmiczniNajeźdźcy
         bool playerFireCooldownElapsed = true;
         public bool ogFireMode = true;
         public int player1Score = 0;
+        bool bulletHasCollided = true; // since last partial redraw
 
         List<Barrier> barriers = new List<Barrier>();
 
@@ -59,59 +61,75 @@ namespace KosmiczniNajeźdźcy
             enemyTick.Elapsed += OnEnemyTick;
             enemyTick.AutoReset = true;
             enemyTick.Enabled = false;
+
         }
         int tmpCounter = 0; // TODO:        DELETE
-        public void Update(PaintEventArgs e)
+        public void Update(PaintEventArgs e) // runs every draw event
         {
             int speed = 5;
-
+            Graphics g = Graphics.FromImage(playArea);
             player.MoveBy(vectToMovePlayerBy[0] * speed, vectToMovePlayerBy[1] * speed,true);
             if (fireButtonHeld)
             {
                 PlayerFire();
             }
-            player.Refresh(e.Graphics);
+            player.Refresh(g);
 
             tmpCounter++; // TODO   NO
             if (tmpCounter > 50)
             {
                 tmpCounter = 0;
-                MoveEnemies(e.Graphics);
+                MoveEnemies(g);
             }
 
-            bool bulletHasCollided = false;
+            
             for (int bullet = 0; bullet < playerBullets.Count(); bullet++) // Update player bullets
             {
-
-                int toDelete = CheckPlayerBullets(bullet, e);
-                if (toDelete != -1) // remove collided bullet
+                playerBullets[bullet].Refresh(g);
+                if (playerBullets[bullet].IsDead) //if it is dead, remove from list
                 {
-                    bulletHasCollided = true;
-                    playerBullets.RemoveAt(toDelete);
+                    playerBullets.RemoveAt(bullet);
                 }
-
+                else
+                {
+                    int collidedBulletIndex = CheckPlayerBullets(bullet, g);
+                    if (collidedBulletIndex != -1) // -1 means it didnt collide
+                    {
+                        bulletHasCollided = true;
+                        playerBullets[collidedBulletIndex].ReciveDamage();// damage collided bullet
+                    }
+                }
+                
             }
             for (int bullet = 0; bullet < enemyBullets.Count(); bullet++) // Update enemy bullets
             {
-
-                int toDelete = CheckEnemyBullets(bullet, e);
-                if (toDelete != -1) // remove collided bullet
+                enemyBullets[bullet].Refresh(g);
+                if (enemyBullets[bullet].IsDead)
                 {
-                    bulletHasCollided = true;
-                    enemyBullets.RemoveAt(toDelete);
+                    enemyBullets.RemoveAt(bullet); //if it is dead, remove from list
+                }
+                else
+                {
+                    int collidedBulletIndex = CheckEnemyBullets(bullet, g);
+                    if (collidedBulletIndex != -1) // -1 means it didnt collide
+                    {
+                        bulletHasCollided = true;
+                        enemyBullets[collidedBulletIndex].ReciveDamage();// damage collided bullet
+                    }
                 }
 
             }
             if (bulletHasCollided)
             {
-                foreach (var enemy in enemies)
-                {
-                    enemy.Refresh(e.Graphics);
-                }
                 foreach (var barrier in barriers)
                 {
-                    barrier.Refresh(e.Graphics);
+                    barrier.Refresh(g);
                 }
+                foreach (var enemy in enemies)
+                {
+                    enemy.Refresh(g);
+                }
+                bulletHasCollided = false;
             }
             
 
@@ -127,19 +145,12 @@ namespace KosmiczniNajeźdźcy
                 }
             }
 
-            
+            e.Graphics.DrawImage(playArea, 0, 0);
 
         }
-        private void RefreshAll(List<Entity> list)
-        {
-
-        }
-        private int CheckPlayerBullets(int bullet, PaintEventArgs e)
+        private int CheckPlayerBullets(int bullet, Graphics g)
         {
             int ifNotHitValue = -1;
-            playerBullets[bullet].Refresh(e.Graphics);
-
-
             if (playerBullets[bullet].Pos.Y < 70) // check if bullet has left upper bounds
             {
                 return bullet;
@@ -150,11 +161,8 @@ namespace KosmiczniNajeźdźcy
                 if (enemies[enemy].IsAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
                 {
                     player1Score += enemies[enemy].PointVal;
-                    if (enemies[enemy].ReciveDamage() == 0)
-                    {
-                        enemies.RemoveAt(enemy);
-                    }
-
+                    enemies[enemy].ReciveDamage();
+                    enemies[enemy].Refresh(g);
                     return bullet;
                 }
             }
@@ -171,12 +179,9 @@ namespace KosmiczniNajeźdźcy
             return ifNotHitValue;
         }
 
-        private int CheckEnemyBullets(int bullet, PaintEventArgs e)
+        private int CheckEnemyBullets(int bullet, Graphics g)
         {
             int ifNotHitValue = -1;
-
-            enemyBullets[bullet].Refresh(e.Graphics);
-
             if (enemyBullets[bullet].Pos.Y >= 750) // check if bullet has left lower bounds
             {
                 return bullet;
@@ -235,7 +240,7 @@ namespace KosmiczniNajeźdźcy
 
         }
 
-        private void MoveEnemies(Graphics e)
+        private void MoveEnemies(Graphics g)
         {
             if (enemies.Count != 0)
             {
@@ -265,6 +270,7 @@ namespace KosmiczniNajeźdźcy
                 foreach (var enemie in enemies)
                 {
                     enemie.MoveBy(moveByX, moveByY);
+                    enemie.Refresh(g);
                 }
             }   
         }
