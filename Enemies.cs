@@ -13,8 +13,8 @@ namespace KosmiczniNajeźdźcy
         public static readonly Color color = Color.Aqua;
         Point gunExit = new Point(5*GameController.PixelSize, 8*GameController.PixelSize);
 
-        public EnemyCrab(Point pos) :
-            base(pos, Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 20)
+        public EnemyCrab(int x, int y) :
+            base(new Point(x,y), Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 20)
         {
         }
 
@@ -29,8 +29,8 @@ namespace KosmiczniNajeźdźcy
         public static readonly Color color = Color.HotPink;
         Point gunExit = new Point(4 * GameController.PixelSize, 8 * GameController.PixelSize);
 
-        public EnemySquid(Point pos) :
-            base(pos, Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 30)
+        public EnemySquid(int x, int y) :
+            base(new Point(x, y), Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 30)
         {
         }
 
@@ -45,8 +45,8 @@ namespace KosmiczniNajeźdźcy
         public static readonly Color color = Color.BlueViolet;
         Point gunExit = new Point(6 * GameController.PixelSize, 8 * GameController.PixelSize);
 
-        public EnemyEclipse(Point pos) :
-            base(pos, Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 10)
+        public EnemyEclipse(int x, int y) :
+            base(new Point(x, y),Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 10)
         {
         }
 

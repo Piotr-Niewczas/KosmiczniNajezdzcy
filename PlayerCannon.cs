@@ -15,7 +15,7 @@ namespace KosmiczniNajeźdźcy
 
         public PlayerCannon(Point pos) : base(pos, Entity.GetGraphicFromString(graphicStr, color, pixelSize), 0)
         {
-            allowUpDownMove= false;
+            allowUpDownMove = false;
         }
 
         public override Point GunExit => gunExit;

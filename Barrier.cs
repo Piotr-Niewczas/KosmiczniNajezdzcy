@@ -35,7 +35,7 @@ namespace KosmiczniNajeźdźcy
 
             DoUndraw = true;
             bool inverted = false;
-            if (y > Pos.Y)
+            if (y > Pos.Y+3)
             {
                 inverted = true;
             }
@@ -59,7 +59,7 @@ namespace KosmiczniNajeźdźcy
             {
                 multiplayer = -1;
             }
-            for (int yDelta = 0; yDelta <= holeY; yDelta++) // iterate through standard explosion hole
+            for (int yDelta = -2; yDelta <= holeY; yDelta++) // iterate through standard explosion hole
             {
                 for (int xDelta = holeX * -1; xDelta <= holeX; xDelta++)
                 {

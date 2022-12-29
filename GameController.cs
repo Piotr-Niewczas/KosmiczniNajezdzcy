@@ -32,24 +32,26 @@ namespace KosmiczniNajeźdźcy
 
         public void Start()
         {
-        player = new PlayerCannon( new Point(330, 680));
-        int i = 0;
-            //for (int j = 0; j < 11; j++)
-            //{
-            //    enemies.Add(new EnemyCrab(new Point((PixelSize*25) * j + 10, 150+i*50 )));
-            //    enemies.Add(new EnemySquid(new Point((PixelSize * 25) * j + 10+2*PixelSize, 150 + (i+1) * 50)));
-            //    enemies.Add(new EnemyEclipse(new Point((PixelSize * 25) * j + 10, 150 + (i + 2) * 50)));
-            //}
+            player = new PlayerCannon( new Point(330, 680));
+        
+            for (int j = 0; j < 11; j++) // spawn enemies
+            {
+                enemies.Add(new EnemySquid((PixelSize * 25) * j + 70 + 2 * PixelSize, 175));
+                enemies.Add(new EnemyCrab((PixelSize * 25) * j + 70, 175 + 50 * 1));
+                enemies.Add(new EnemyCrab((PixelSize * 25) * j + 70, 175 + 50 * 2));
+                enemies.Add(new EnemyEclipse((PixelSize * 25) * j + 70, 175 + 50 * 3));
+                enemies.Add(new EnemyEclipse((PixelSize * 25) * j + 70, 175 + 50 * 4));
+            }
 
-            for (int b = 0; b < 4; b++)
+            for (int b = 0; b < 4; b++) // spawn barriers
             {
                 barriers.Add(new Barrier(new Point(90+150*b, 590), 2));
             }
 
             fireCooldown = new System.Timers.Timer(450);
-        fireCooldown.Elapsed += OnCooldownElapsed;
-        fireCooldown.AutoReset = false;
-        fireCooldown.Enabled = false;
+            fireCooldown.Elapsed += OnCooldownElapsed;
+            fireCooldown.AutoReset = false;
+            fireCooldown.Enabled = false;
         }
         int tmpCounter = 0; // TODO:        DELETE
         public void Update(PaintEventArgs e)
@@ -80,6 +82,17 @@ namespace KosmiczniNajeźdźcy
                 }
 
             }
+            for (int bullet = 0; bullet < enemyBullets.Count(); bullet++) // Update enemy bullets
+            {
+
+                int toDelete = CheckEnemyBullets(bullet, e);
+                if (toDelete != -1) // remove collided bullet
+                {
+                    enemyBullets.RemoveAt(toDelete);
+                }
+
+            }
+
             Random r = new Random();
             foreach (var enemy in enemies)
             {
@@ -140,6 +153,41 @@ namespace KosmiczniNajeźdźcy
 
             return ifNotHitValue;
         }
+
+        private int CheckEnemyBullets(int bullet, PaintEventArgs e)
+        {
+            int ifNotHitValue = -1;
+
+            enemyBullets[bullet].Refresh(e.Graphics);
+
+            if (enemyBullets[bullet].Pos.Y >= 750) // check if bullet has left lower bounds
+            {
+                return bullet;
+            }
+
+            foreach (var barrier in barriers) // check for collisions with barriers
+            {
+                if (barrier.IsAt(enemyBullets[bullet].Pos.X, enemyBullets[bullet].Pos.Y))
+                {
+                    barrier.ReciveDamage(enemyBullets[bullet].Pos.X, enemyBullets[bullet].Pos.Y);
+                    return bullet;
+                }
+            }
+
+            if (player.IsAt(enemyBullets[bullet].Pos.X, enemyBullets[bullet].Pos.Y))
+            {
+                PlayerShot();
+                return bullet;
+            }
+
+            return ifNotHitValue;
+        }
+
+        private void PlayerShot()
+        {
+
+        }
+
         private void OnCooldownElapsed(Object? source, System.Timers.ElapsedEventArgs e)
         {
             playerFireCooldownElapsed = true;
@@ -176,7 +224,7 @@ namespace KosmiczniNajeźdźcy
                 Entity leftmost = GetLeftMostEnemy();
                 int moveByX = 0, moveByY = 0;
 
-                if ((rightmost.Pos.X > 700 - (13 * PixelSize) - stepSizeX) && areEnemiesMovingRight ||
+                if ((rightmost.Pos.X + rightmost.SizeX > 700 - stepSizeX) && areEnemiesMovingRight ||
                     (leftmost.Pos.X < 0 + stepSizeX) && !areEnemiesMovingRight)
                 {
                     moveByY += stepSizeY;
@@ -205,9 +253,9 @@ namespace KosmiczniNajeźdźcy
             Entity entity = enemies[0];
             foreach (var enemy in enemies)
             {
-                if (enemy.Pos.X > max)
+                if (enemy.Pos.X + enemy.SizeX > max)
                 {
-                    max = enemy.Pos.X;
+                    max = enemy.Pos.X + enemy.SizeX;
                     entity = enemy;
                 }
             }

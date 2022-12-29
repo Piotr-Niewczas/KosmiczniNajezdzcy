@@ -88,7 +88,6 @@ namespace KosmiczniNajeźdźcy
                 if (prevPos.X != Pos.X || prevPos.Y != Pos.Y || doUndraw)
                 {
                     Undraw(g, prevPos);
-                    Debug.Write(this.GetType().Name);
                     doUndraw = false;
                 }
                 Draw(g, Pos);
