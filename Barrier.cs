@@ -31,7 +31,7 @@ namespace KosmiczniNajeźdźcy
         /// <param name="inverted">Normal is bullet from the top</param>
         void ExplodeABit(int x, int y)
         {
-            const int holeY = 8, holeX = 2;
+            const int holeY = 5, holeX = 1;
 
             DoUndraw = true;
             bool inverted = false;

@@ -41,9 +41,12 @@ namespace KosmiczniNajeźdźcy
             //    enemies.Add(new EnemyEclipse(new Point((PixelSize * 25) * j + 10, 150 + (i + 2) * 50)));
             //}
 
-            barriers.Add(new Barrier(new Point(200, 600), 2));
-            
-        fireCooldown = new System.Timers.Timer(450);
+            for (int b = 0; b < 4; b++)
+            {
+                barriers.Add(new Barrier(new Point(90+150*b, 590), 2));
+            }
+
+            fireCooldown = new System.Timers.Timer(450);
         fireCooldown.Elapsed += OnCooldownElapsed;
         fireCooldown.AutoReset = false;
         fireCooldown.Enabled = false;
