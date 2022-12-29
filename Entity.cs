@@ -85,10 +85,14 @@ namespace KosmiczniNajeźdźcy
         {
             if (IsVisible)
             {
-                if (prevPos.X != Pos.X || prevPos.Y != Pos.Y || doUndraw)
+                if (doUndraw)
+                {
+                    doUndraw = false;
+                    Undraw(g, Pos);
+                }
+                if (prevPos.X != Pos.X || prevPos.Y != Pos.Y)
                 {
                     Undraw(g, prevPos);
-                    doUndraw = false;
                 }
                 Draw(g, Pos);
             }
