@@ -16,6 +16,6 @@ namespace KosmiczniNajeźdźcy
 
         public override Point GunExit => gunExit;
 
-        protected override int yBulletSpeed => -3;
+        protected override int yBulletSpeed => -10;
     }
 }

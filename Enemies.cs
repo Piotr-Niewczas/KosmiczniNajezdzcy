@@ -16,7 +16,7 @@ namespace KosmiczniNajeźdźcy
 
         public override Point GunExit => gunExit;
 
-        protected override int yBulletSpeed => 3;
+        protected override int yBulletSpeed => 5;
     }
     internal class EnemySquid : AnimShEntity
     {
@@ -32,7 +32,7 @@ namespace KosmiczniNajeźdźcy
 
         public override Point GunExit => gunExit;
 
-        protected override int yBulletSpeed => 3;
+        protected override int yBulletSpeed => 5;
     }
     internal class EnemyEclipse: AnimShEntity
     {
@@ -48,7 +48,7 @@ namespace KosmiczniNajeźdźcy
 
         public override Point GunExit => gunExit;
 
-        protected override int yBulletSpeed => 3;
+        protected override int yBulletSpeed => 5;
     }
 
 
