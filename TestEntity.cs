@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
+﻿using SquareGraphics;
 
 namespace KosmiczniNajeźdźcy
 {
@@ -16,7 +10,7 @@ namespace KosmiczniNajeźdźcy
         Point gunExit = new Point(6 * GameController.PixelSize+1, 8 * GameController.PixelSize+1);
 
         public TestEntity(Point pos, Color color) : 
-            base(pos, Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize),Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 10)
+            base(pos, SquareGraphic.GetFromString(graphicStr, color, GameController.PixelSize), SquareGraphic.GetFromString(graphicStr2, color, GameController.PixelSize), 10)
         {
         }
 

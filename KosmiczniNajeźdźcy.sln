@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KosmiczniNajeźdźcy", "KosmiczniNajeźdźcy.csproj", "{92F0AA99-F100-4C96-B410-0DCD270A8A8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KosmiczniNajeźdźcy", "KosmiczniNajeźdźcy.csproj", "{92F0AA99-F100-4C96-B410-0DCD270A8A8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SquareGraphics", "..\SquareGraphics\SquareGraphics\SquareGraphics.csproj", "{A67FB895-477D-4330-ABCD-60B98490F832}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{92F0AA99-F100-4C96-B410-0DCD270A8A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92F0AA99-F100-4C96-B410-0DCD270A8A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92F0AA99-F100-4C96-B410-0DCD270A8A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A67FB895-477D-4330-ABCD-60B98490F832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A67FB895-477D-4330-ABCD-60B98490F832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A67FB895-477D-4330-ABCD-60B98490F832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A67FB895-477D-4330-ABCD-60B98490F832}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

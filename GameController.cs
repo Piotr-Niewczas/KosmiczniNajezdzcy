@@ -46,7 +46,6 @@ namespace KosmiczniNajeźdźcy
                 enemies.Add(new EnemyEclipse((PixelSize * 25) * j + 70, 175 + 50 * 3));
                 enemies.Add(new EnemyEclipse((PixelSize * 25) * j + 70, 175 + 50 * 4));
             }
-
             for (int b = 0; b < 4; b++) // spawn barriers
             {
                 barriers.Add(new Barrier(new Point(90+150*b, 590), 2));
@@ -61,7 +60,6 @@ namespace KosmiczniNajeźdźcy
             enemyTick.Elapsed += OnEnemyTick;
             enemyTick.AutoReset = true;
             enemyTick.Enabled = false;
-
         }
         int tmpCounter = 0; // TODO:        DELETE
         public void Update(PaintEventArgs e) // runs every draw event
@@ -98,8 +96,7 @@ namespace KosmiczniNajeźdźcy
                         bulletHasCollided = true;
                         playerBullets[collidedBulletIndex].ReciveDamage();// damage collided bullet
                     }
-                }
-                
+                }               
             }
             for (int bullet = 0; bullet < enemyBullets.Count(); bullet++) // Update enemy bullets
             {
@@ -117,7 +114,6 @@ namespace KosmiczniNajeźdźcy
                         enemyBullets[collidedBulletIndex].ReciveDamage();// damage collided bullet
                     }
                 }
-
             }
             if (bulletHasCollided)
             {
@@ -136,8 +132,6 @@ namespace KosmiczniNajeźdźcy
             Random r = new Random();
             foreach (var enemy in enemies)
             {
-                //enemy.Refresh(e.Graphics); 
-
                 int rand = r.Next(0,10000); //TODO redo this abomination
                 if (rand > 9990)
                 {
@@ -157,7 +151,6 @@ namespace KosmiczniNajeźdźcy
             }
             for (int enemy = 0; enemy < enemies.Count(); enemy++) // chech if bullet is in one of the enemies
             {
-
                 if (enemies[enemy].IsAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
                 {
                     player1Score += enemies[enemy].PointVal;
@@ -250,7 +243,7 @@ namespace KosmiczniNajeźdźcy
                 Entity leftmost = GetLeftMostEnemy();
                 int moveByX = 0, moveByY = 0;
 
-                if ((rightmost.Pos.X + rightmost.SizeX > 700 - stepSizeX) && areEnemiesMovingRight ||
+                if ((rightmost.Pos.X + rightmost.Graphic.Size.Width > 700 - stepSizeX) && areEnemiesMovingRight ||
                     (leftmost.Pos.X < 0 + stepSizeX) && !areEnemiesMovingRight)
                 {
                     moveByY += stepSizeY;
@@ -280,9 +273,9 @@ namespace KosmiczniNajeźdźcy
             Entity entity = enemies[0];
             foreach (var enemy in enemies)
             {
-                if (enemy.Pos.X + enemy.SizeX > max)
+                if (enemy.Pos.X + enemy.Graphic.Size.Width > max)
                 {
-                    max = enemy.Pos.X + enemy.SizeX;
+                    max = enemy.Pos.X + enemy.Graphic.Size.Width;
                     entity = enemy;
                 }
             }

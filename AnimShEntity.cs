@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SquareGraphics;
 
 namespace KosmiczniNajeźdźcy
 {
     abstract class AnimShEntity : ShootingEntity
     {
         bool secGrapActive = false;
-        List<List<Square>> graphic2;
-        public AnimShEntity(Point pos, List<List<Square>> graphic, List<List<Square>> graphic2, int pointVal) : base(pos, graphic, pointVal)
+        SquareGraphic graphic2;
+        public AnimShEntity(Point pos, SquareGraphic graphic, SquareGraphic graphic2, int pointVal) : base(pos, graphic, pointVal)
         {
             this.graphic2 = graphic2;
         }
 
-        public override List<List<Square>> Pixels
+        public override SquareGraphic Graphic
         {
             get
             {
                 if (secGrapActive) return graphic2;
-                else return pixels;
+                else return base.Graphic;
             }
         }
         public override void MoveBy(int dx, int dy, bool checkBounds = true)

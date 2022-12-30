@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SquareGraphics;
 
 namespace KosmiczniNajeźdźcy
 {
@@ -13,7 +9,7 @@ namespace KosmiczniNajeźdźcy
         public readonly static Color color = Color.Lime;
         Point gunExit = new Point(Convert.ToInt32(6.5* pixelSize),0);
 
-        public PlayerCannon(Point pos) : base(pos, Entity.GetGraphicFromString(graphicStr, color, pixelSize), 0)
+        public PlayerCannon(Point pos) : base(pos, SquareGraphic.GetFromString(graphicStr, color, pixelSize), 0)
         {
             allowUpDownMove = false;
         }

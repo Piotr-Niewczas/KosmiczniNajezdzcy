@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquareGraphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,12 @@ namespace KosmiczniNajeźdźcy
         protected int pointVal;
         int bulletDamage;
 
-        protected ShootingEntity(Point pos, int pixelSize, bool allowUpDownMove, List<List<Square>> graphic, int pointVal, int bulletDamage) : base(pos, pixelSize, allowUpDownMove, graphic)
+        protected ShootingEntity(Point pos, int pixelSize, bool allowUpDownMove, SquareGraphic graphic, int pointVal, int bulletDamage) : base(pos, pixelSize, allowUpDownMove, graphic)
         {
             this.pointVal = pointVal;
             this.bulletDamage = bulletDamage;
         }
-        protected ShootingEntity(Point pos, List<List<Square>> graphic, int pointVal): this(pos,GameController.PixelSize,true,graphic, pointVal, 1) 
+        protected ShootingEntity(Point pos, SquareGraphic graphic, int pointVal): this(pos,GameController.PixelSize,true,graphic, pointVal, 1) 
         { 
         }    
 

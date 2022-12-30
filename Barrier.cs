@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquareGraphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace KosmiczniNajeźdźcy
          
 
         public static readonly Color color = Color.Lime;
-        public Barrier(Point pos, int pixelSize) : base(pos, pixelSize, false, Entity.GetGraphicFromString(graphicStr,color,pixelSize))
+        public Barrier(Point pos, int pixelSize) : base(pos, pixelSize, false, SquareGraphic.GetFromString(graphicStr,color,pixelSize))
         {
             
         }
@@ -41,11 +42,11 @@ namespace KosmiczniNajeźdźcy
             }
 
             int squareX = 0, squareY = 0;
-            for (int i = 0; i < Pixels.Count(); i++)
+            for (int i = 0; i < Graphic.squares.Count(); i++)
             {
-                for (int j = 0; j < Pixels[i].Count(); j++)
+                for (int j = 0; j < Graphic.squares[i].Count(); j++)
                 {
-                    if (Pixels[i][j].Color != Color.Transparent && Pixels[i][j].isInBounds(x, y, Pos.X, Pos.Y)) 
+                    if (Graphic.squares[i][j].Color != Color.Transparent && Graphic.squares[i][j].isInBounds(x, y, Pos.X, Pos.Y)) 
                     {
                         squareX = j;
                         squareY = i;
@@ -116,9 +117,9 @@ namespace KosmiczniNajeźdźcy
         }
         void DamageGraphic(int x, int y)
         {
-            if (x >= 0 && x < pixels[0].Count && y >= 0 && y < pixels.Count)
+            if (x >= 0 && x < Graphic.squares[0].Count && y >= 0 && y < Graphic.squares.Count)
             {
-                pixels[y][x].Color = Color.Transparent;
+                Graphic.squares[y][x].Color = Color.Transparent;
             }
         }
     }

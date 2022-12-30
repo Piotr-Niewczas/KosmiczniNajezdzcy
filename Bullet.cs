@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SquareGraphics;
 
 namespace KosmiczniNajeźdźcy
 {
@@ -12,7 +8,7 @@ namespace KosmiczniNajeźdźcy
         int ySpeed;
         int damage;
 
-        public Bullet(int ySpeed, int x, int y, int damage, int size, Color color) : base(new Point(x,y), size, true, Entity.GetGraphicFromString(graphicStr, color, size))
+        public Bullet(int ySpeed, int x, int y, int damage, int size, Color color) : base(new Point(x,y), size, true, SquareGraphic.GetFromString(graphicStr, color, size))
         {
             this.ySpeed = ySpeed;
             this.damage= damage;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SquareGraphics;
 
 namespace KosmiczniNajeźdźcy
 {
@@ -14,7 +10,7 @@ namespace KosmiczniNajeźdźcy
         Point gunExit = new Point(5*GameController.PixelSize, 8*GameController.PixelSize);
 
         public EnemyCrab(int x, int y) :
-            base(new Point(x,y), Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 20)
+            base(new Point(x,y), SquareGraphic.GetFromString(graphicStr, color, GameController.PixelSize), SquareGraphic.GetFromString(graphicStr2, color, GameController.PixelSize), 20)
         {
         }
 
@@ -30,7 +26,7 @@ namespace KosmiczniNajeźdźcy
         Point gunExit = new Point(4 * GameController.PixelSize, 8 * GameController.PixelSize);
 
         public EnemySquid(int x, int y) :
-            base(new Point(x, y), Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 30)
+            base(new Point(x, y), SquareGraphic.GetFromString(graphicStr, color, GameController.PixelSize), SquareGraphic.GetFromString(graphicStr2, color, GameController.PixelSize), 30)
         {
         }
 
@@ -46,7 +42,7 @@ namespace KosmiczniNajeźdźcy
         Point gunExit = new Point(6 * GameController.PixelSize, 8 * GameController.PixelSize);
 
         public EnemyEclipse(int x, int y) :
-            base(new Point(x, y),Entity.GetGraphicFromString(graphicStr, color, GameController.PixelSize), Entity.GetGraphicFromString(graphicStr2, color, GameController.PixelSize), 10)
+            base(new Point(x, y), SquareGraphic.GetFromString(graphicStr, color, GameController.PixelSize), SquareGraphic.GetFromString(graphicStr2, color, GameController.PixelSize), 10)
         {
         }
 
