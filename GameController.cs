@@ -10,9 +10,10 @@
         public readonly static int PixelSize = 2;
 
         List<AnimShEntity> enemies = new();
+        const int startEnemyCount = 11 * 5;
         bool areEnemiesMovingRight = true;
         List<Bullet> enemyBullets = new();
-        bool enemiesTickHappened = false;
+        bool enemiesTickUnHandled = false;
 
         PlayerCannon player;
         List<Bullet> playerBullets = new();
@@ -21,13 +22,18 @@
         bool playerFireCooldownElapsed = true;
         public bool ogFireMode = true;
         public int player1Score = 0;
+        private int playerLives = 3;
+
         bool bulletHasCollided = true; // since last partial redraw
 
         List<Barrier> barriers = new();
 
+        public int PlayerLives { get => playerLives; private set => playerLives = value; }
+
         public void Start()
         {
             player = new PlayerCannon(new Point(330, 680));
+
             
             for (int j = 0; j < 11; j++) // spawn enemies
             {
@@ -48,7 +54,7 @@
             playerFireCooldown.Enabled = false;
 
             enemyTick = new System.Timers.Timer(1000);
-            enemyTick.Interval = 1000 - ((55 - enemies.Count) * 18); // 55 is starting enemy count
+            enemyTick.Interval = 1000 - ((startEnemyCount - enemies.Count) * 18);
             enemyTick.Elapsed += OnEnemyTick;
             enemyTick.AutoReset = true;
             enemyTick.Enabled = true;
@@ -58,7 +64,7 @@
             int speed = 5;
             Graphics g = Graphics.FromImage(playArea);
             player.MoveBy(vectToMovePlayerBy[0] * speed, vectToMovePlayerBy[1] * speed, true);
-            if (fireButtonHeld)
+            if (fireButtonHeld && !player.IsDead)
             {
                 PlayerFire();
             }
@@ -115,7 +121,7 @@
                 bulletHasCollided = false;
             }
 
-            if (enemiesTickHappened)
+            if (enemiesTickUnHandled)
             {
                 {
                     int enemyNrToDelete = -1;
@@ -136,7 +142,7 @@
                     } while (enemyNrToDelete != -1);
                 }
 
-                enemiesTickHappened = false;
+                enemiesTickUnHandled = false;
                 MoveEnemies(g);
                 Random r = new Random();
                 int howManyShots = r.Next(-5, enemies.Count / 10 + 1);
@@ -211,7 +217,11 @@
 
         private void PlayerShot()
         {
-
+            PlayerLives--;
+            if (PlayerLives == 0)
+            {
+                player.ReciveDamage();
+            }
         }
 
         private void OnPlayerFireCooldownElapsed(Object? source, System.Timers.ElapsedEventArgs e)
@@ -241,16 +251,16 @@
 
         private void OnEnemyTick(Object? source, System.Timers.ElapsedEventArgs e)
         {
-            enemyTick.Interval = 1000 - ((55 - enemies.Count) * 18);
-            enemiesTickHappened = true;
+            enemyTick.Interval = 1000 - ((startEnemyCount - enemies.Count) * 18);
+            enemiesTickUnHandled = true;
         }
 
         private void MoveEnemies(Graphics g)
         {
             if (enemies.Count != 0)
             {
-                int stepSizeX = 10;
-                int stepSizeY = 30;
+                int stepSizeX = 5;
+                int stepSizeY = 25;
                 Entity rightmost = GetRightMostEnemy();
                 Entity leftmost = GetLeftMostEnemy();
                 int moveByX = 0, moveByY = 0;

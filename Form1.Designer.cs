@@ -42,18 +42,18 @@
             this.scoreLabel2 = new System.Windows.Forms.Label();
             this.scoreLabel1 = new System.Windows.Forms.Label();
             this.bottomPanel = new System.Windows.Forms.Panel();
+            this.greenBottomThingy = new System.Windows.Forms.PictureBox();
             this.lifePictureBox2 = new System.Windows.Forms.PictureBox();
             this.lifePictureBox1 = new System.Windows.Forms.PictureBox();
             this.lifeLabel = new System.Windows.Forms.Label();
             this.creditLabel = new System.Windows.Forms.Label();
-            this.greenBottomThingy = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.logoBox)).BeginInit();
             this.startPanel.SuspendLayout();
             this.scorePanel.SuspendLayout();
             this.bottomPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.greenBottomThingy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lifePictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lifePictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.greenBottomThingy)).BeginInit();
             this.SuspendLayout();
             // 
             // frameTimer
@@ -181,6 +181,15 @@
             this.bottomPanel.Size = new System.Drawing.Size(700, 50);
             this.bottomPanel.TabIndex = 4;
             // 
+            // greenBottomThingy
+            // 
+            this.greenBottomThingy.BackColor = System.Drawing.Color.Lime;
+            this.greenBottomThingy.Location = new System.Drawing.Point(0, 3);
+            this.greenBottomThingy.Name = "greenBottomThingy";
+            this.greenBottomThingy.Size = new System.Drawing.Size(698, 3);
+            this.greenBottomThingy.TabIndex = 0;
+            this.greenBottomThingy.TabStop = false;
+            // 
             // lifePictureBox2
             // 
             this.lifePictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("lifePictureBox2.Image")));
@@ -221,15 +230,6 @@
             this.creditLabel.TabIndex = 1;
             this.creditLabel.Text = "CREDIT 00";
             // 
-            // greenBottomThingy
-            // 
-            this.greenBottomThingy.BackColor = System.Drawing.Color.Lime;
-            this.greenBottomThingy.Location = new System.Drawing.Point(0, 3);
-            this.greenBottomThingy.Name = "greenBottomThingy";
-            this.greenBottomThingy.Size = new System.Drawing.Size(698, 3);
-            this.greenBottomThingy.TabIndex = 0;
-            this.greenBottomThingy.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -257,9 +257,9 @@
             this.scorePanel.PerformLayout();
             this.bottomPanel.ResumeLayout(false);
             this.bottomPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.greenBottomThingy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lifePictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lifePictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.greenBottomThingy)).EndInit();
             this.ResumeLayout(false);
 
         }

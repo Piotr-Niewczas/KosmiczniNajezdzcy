@@ -28,13 +28,27 @@ namespace KosmiczniNajeźdźcy
             {
                 gc.Update(e);
             }
-           
-
         }
 
         private void frameTimer_Tick(object sender, EventArgs e)
         {
             scoreNr1Label.Text = gc.player1Score.ToString().PadLeft(4, '0');
+            lifeLabel.Text = gc.PlayerLives.ToString();
+
+            if (gc.PlayerLives == 3)
+            {
+                lifePictureBox2.Visible = true;
+                lifePictureBox1.Visible = true;
+            }
+            else if (gc.PlayerLives < 3)
+            {
+                lifePictureBox2.Visible = false;
+            }
+            else if (gc.PlayerLives < 2)
+            {
+                lifePictureBox1.Visible = false;
+            }
+
             Refresh();
         }
 
@@ -78,10 +92,7 @@ namespace KosmiczniNajeźdźcy
             if (e.KeyData == Keys.Space)
                 gc.fireButtonHeld = false;
         }
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
