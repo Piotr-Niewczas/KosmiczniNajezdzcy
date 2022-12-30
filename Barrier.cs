@@ -1,21 +1,16 @@
 ﻿using SquareGraphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KosmiczniNajeźdźcy
 {
     internal class Barrier : Entity
     {
         static string graphicStr = "0\t0\t0\t0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\t0\t0\t0\r\n0\t0\t0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\t0\t0\r\n0\t0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\t0\r\n0\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t0\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t1\t0\t0\t0\t0\t0\t0\t1\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t1\t0\t0\t0\t0\t0\t0\t0\t0\t1\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t1\t1\t1\t1\t1\r\n1\t1\t1\t1\t1\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t1\t1\t1\t1\t1\r\n";
-         
+
 
         public static readonly Color color = Color.Lime;
-        public Barrier(Point pos, int pixelSize) : base(pos, pixelSize, false, SquareGraphic.GetFromString(graphicStr,color,pixelSize))
+        public Barrier(Point pos, int pixelSize) : base(pos, pixelSize, false, SquareGraphic.GetFromString(graphicStr, color, pixelSize))
         {
-            
+
         }
 
         public override int ReciveDamage(int bulletX, int bulletY)
@@ -36,7 +31,7 @@ namespace KosmiczniNajeźdźcy
 
             DoUndraw = true;
             bool inverted = false;
-            if (y > Pos.Y+3)
+            if (y > Pos.Y + 3)
             {
                 inverted = true;
             }
@@ -46,7 +41,7 @@ namespace KosmiczniNajeźdźcy
             {
                 for (int j = 0; j < Graphic.squares[i].Count(); j++)
                 {
-                    if (Graphic.squares[i][j].Color != Color.Transparent && Graphic.squares[i][j].isInBounds(x, y, Pos.X, Pos.Y)) 
+                    if (Graphic.squares[i][j].Color != Color.Transparent && Graphic.squares[i][j].isInBounds(x, y, Pos.X, Pos.Y))
                     {
                         squareX = j;
                         squareY = i;
@@ -54,7 +49,7 @@ namespace KosmiczniNajeźdźcy
                 }
             }
 
-            Random random= new Random();
+            Random random = new Random();
             int multiplayer = 1;
             if (inverted) // if inverted change sign of operations
             {
@@ -103,7 +98,7 @@ namespace KosmiczniNajeźdźcy
             {
                 if (random.Next(0, 100) > 30)
                 {
-                    DamageGraphic(squareX+xDelta, squareY - holeY*multiplayer2 + 1 + 1*multiplayer);
+                    DamageGraphic(squareX + xDelta, squareY - holeY * multiplayer2 + 1 + 1 * multiplayer);
                 }
                 if (random.Next(0, 100) > 60)
                 {
@@ -121,6 +116,25 @@ namespace KosmiczniNajeźdźcy
             {
                 Graphic.squares[y][x].Color = Color.Transparent;
             }
+        }
+        public override bool IsAt(int x, int y)
+        {
+            if (!colliderEnabled)
+            {
+                return false;
+            }
+            for (int i = 0; i < Graphic.squares.Count(); i++)
+            {
+                for (int j = 0; j < Graphic.squares[i].Count(); j++)
+                {
+                    if (Graphic.squares[i][j].Color != Color.Transparent && Graphic.squares[i][j].isInBounds(x, y, Pos.X, Pos.Y)) // if target pixel not transpartent (abscent) and is there
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+
         }
     }
 }

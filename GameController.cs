@@ -28,7 +28,7 @@
         public void Start()
         {
             player = new PlayerCannon(new Point(330, 680));
-
+            
             for (int j = 0; j < 11; j++) // spawn enemies
             {
                 enemies.Add(new EnemySquid((PixelSize * 25) * j + 70 + 2 * PixelSize, 175));
@@ -63,18 +63,10 @@
                 PlayerFire();
             }
             player.Refresh(g);
-
-
-            //Random r = new Random();
-            //foreach (var enemy in enemies)
-            //{
-            //    int rand = r.Next(0, 10000); //TODO redo this abomination
-            //    if (rand > 9990)
-            //    {
-            //        enemyBullets.Add(enemy.Fire(Color.White));
-            //    }
-            //}
-
+            foreach (var enemy in enemies)
+            {
+                enemy.Refresh(g);
+            }
             for (int bullet = 0; bullet < playerBullets.Count(); bullet++) // Update player bullets
             {
                 playerBullets[bullet].Refresh(g);
@@ -107,6 +99,7 @@
                         bulletHasCollided = true;
                         enemyBullets[collidedBulletIndex].ReciveDamage();// damage collided bullet
                     }
+                    
                 }
             }
             if (bulletHasCollided)
@@ -155,6 +148,7 @@
                     }
                 }
             }
+           
 
             e.Graphics.DrawImage(playArea, 0, 0);
 

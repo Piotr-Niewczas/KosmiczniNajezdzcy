@@ -1,11 +1,4 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SquareGraphics;
+﻿using SquareGraphics;
 
 
 namespace KosmiczniNajeźdźcy
@@ -16,7 +9,7 @@ namespace KosmiczniNajeźdźcy
         public virtual SquareGraphic Graphic { get => graphic; set => graphic = value; }
 
         private Point pos;
-        public Point Pos { get => pos;}
+        public Point Pos { get => pos; }
         private Point prevPos;
         protected bool colliderEnabled = true;
         protected bool allowUpDownMove = true;
@@ -44,7 +37,7 @@ namespace KosmiczniNajeźdźcy
             }
         }
 
-        
+
 
         public Entity(Point pos, int pixelSize, bool allowUpDownMove, SquareGraphic graphic)
         {
@@ -64,7 +57,7 @@ namespace KosmiczniNajeźdźcy
                 Graphic.Draw(g, Pos, Color.Black);
             }
             if (IsVisible)
-            {  
+            {
                 if (prevPos != Pos)
                 {
                     Graphic.Draw(g, prevPos, Color.Black);
@@ -103,7 +96,7 @@ namespace KosmiczniNajeźdźcy
                     }
                     pos.X = x;
                 }
-            }  
+            }
         }
 
         public virtual void MoveBy(int dx, int dy, bool checkBounds = true)
@@ -127,8 +120,8 @@ namespace KosmiczniNajeźdźcy
         {
             return ReciveDamage(0, 0);
         }
-        protected void Die() 
-        { 
+        protected void Die()
+        {
             IsVisible = false;
             colliderEnabled = false;
             isDead = true;
@@ -140,26 +133,22 @@ namespace KosmiczniNajeźdźcy
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns>True if is</returns>
-        public bool IsAt(int x, int y)
+        public virtual bool IsAt(int x, int y)
         {
             if (!colliderEnabled)
             {
                 return false;
             }
-            for (int i = 0; i < Graphic.squares.Count(); i++)
+            if (x >= Pos.X && x < Pos.X+graphic.Size.Width)
             {
-                for (int j = 0; j < Graphic.squares[i].Count(); j++)
+                if (y >= Pos.Y && y< Pos.Y + graphic.Size.Height)
                 {
-                    if (Graphic.squares[i][j].Color != Color.Transparent && Graphic.squares[i][j].isInBounds(x,y,Pos.X,Pos.Y)) // if target pixel not transpartent (abscent) and is there
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;
         }
 
-        
 
     }
 }
