@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
-
-namespace KosmiczniNajeźdźcy
+﻿namespace KosmiczniNajeźdźcy
 {
     public class GameController
     {
@@ -18,13 +8,14 @@ namespace KosmiczniNajeźdźcy
         private static System.Timers.Timer enemyTick;
 
         public readonly static int PixelSize = 2;
-        
-        List<AnimShEntity> enemies= new();
+
+        List<AnimShEntity> enemies = new();
         bool areEnemiesMovingRight = true;
         List<Bullet> enemyBullets = new();
-        
+        bool enemiesTickHappened = false;
+
         PlayerCannon player;
-        List<Bullet> playerBullets = new List<Bullet>();
+        List<Bullet> playerBullets = new();
         public int[] vectToMovePlayerBy = new int[] { 0, 0 };
         public bool fireButtonHeld = false;
         bool playerFireCooldownElapsed = true;
@@ -32,12 +23,12 @@ namespace KosmiczniNajeźdźcy
         public int player1Score = 0;
         bool bulletHasCollided = true; // since last partial redraw
 
-        List<Barrier> barriers = new List<Barrier>();
+        List<Barrier> barriers = new();
 
         public void Start()
         {
-            player = new PlayerCannon( new Point(330, 680));
-        
+            player = new PlayerCannon(new Point(330, 680));
+
             for (int j = 0; j < 11; j++) // spawn enemies
             {
                 enemies.Add(new EnemySquid((PixelSize * 25) * j + 70 + 2 * PixelSize, 175));
@@ -48,7 +39,7 @@ namespace KosmiczniNajeźdźcy
             }
             for (int b = 0; b < 4; b++) // spawn barriers
             {
-                barriers.Add(new Barrier(new Point(90+150*b, 590), 2));
+                barriers.Add(new Barrier(new Point(90 + 150 * b, 590), 2));
             }
 
             playerFireCooldown = new System.Timers.Timer(450);
@@ -56,31 +47,34 @@ namespace KosmiczniNajeźdźcy
             playerFireCooldown.AutoReset = false;
             playerFireCooldown.Enabled = false;
 
-            enemyTick = new System.Timers.Timer(125);
+            enemyTick = new System.Timers.Timer(1000);
+            enemyTick.Interval = 1000 - ((55 - enemies.Count) * 18); // 55 is starting enemy count
             enemyTick.Elapsed += OnEnemyTick;
             enemyTick.AutoReset = true;
-            enemyTick.Enabled = false;
+            enemyTick.Enabled = true;
         }
-        int tmpCounter = 0; // TODO:        DELETE
         public void Update(PaintEventArgs e) // runs every draw event
         {
             int speed = 5;
             Graphics g = Graphics.FromImage(playArea);
-            player.MoveBy(vectToMovePlayerBy[0] * speed, vectToMovePlayerBy[1] * speed,true);
+            player.MoveBy(vectToMovePlayerBy[0] * speed, vectToMovePlayerBy[1] * speed, true);
             if (fireButtonHeld)
             {
                 PlayerFire();
             }
             player.Refresh(g);
 
-            tmpCounter++; // TODO   NO
-            if (tmpCounter > 50)
-            {
-                tmpCounter = 0;
-                MoveEnemies(g);
-            }
 
-            
+            //Random r = new Random();
+            //foreach (var enemy in enemies)
+            //{
+            //    int rand = r.Next(0, 10000); //TODO redo this abomination
+            //    if (rand > 9990)
+            //    {
+            //        enemyBullets.Add(enemy.Fire(Color.White));
+            //    }
+            //}
+
             for (int bullet = 0; bullet < playerBullets.Count(); bullet++) // Update player bullets
             {
                 playerBullets[bullet].Refresh(g);
@@ -96,7 +90,7 @@ namespace KosmiczniNajeźdźcy
                         bulletHasCollided = true;
                         playerBullets[collidedBulletIndex].ReciveDamage();// damage collided bullet
                     }
-                }               
+                }
             }
             for (int bullet = 0; bullet < enemyBullets.Count(); bullet++) // Update enemy bullets
             {
@@ -127,15 +121,38 @@ namespace KosmiczniNajeźdźcy
                 }
                 bulletHasCollided = false;
             }
-            
 
-            Random r = new Random();
-            foreach (var enemy in enemies)
+            if (enemiesTickHappened)
             {
-                int rand = r.Next(0,10000); //TODO redo this abomination
-                if (rand > 9990)
                 {
-                    enemyBullets.Add( enemy.Fire(Color.White));
+                    int enemyNrToDelete = -1;
+                    do
+                    {
+                        enemyNrToDelete = -1;
+                        for (int i = 0; i < enemies.Count; i++)
+                        {
+                            if (enemies[i].IsDead)
+                            {
+                                enemyNrToDelete = i;
+                            }
+                        }
+                        if (enemyNrToDelete != -1)
+                        {
+                            enemies.RemoveAt(enemyNrToDelete);
+                        }
+                    } while (enemyNrToDelete != -1);
+                }
+
+                enemiesTickHappened = false;
+                MoveEnemies(g);
+                Random r = new Random();
+                int howManyShots = r.Next(-5, enemies.Count / 10 + 1);
+                if (howManyShots > 0)
+                {
+                    for (int i = 0; i < howManyShots; i++)
+                    {
+                        enemyBullets.Add(enemies[r.Next(0, enemies.Count())].Fire(Color.White));
+                    }
                 }
             }
 
@@ -163,7 +180,7 @@ namespace KosmiczniNajeźdźcy
             foreach (var barrier in barriers) // check for collisions with barriers
             {
                 if (barrier.IsAt(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y))
-                {         
+                {
                     barrier.ReciveDamage(playerBullets[bullet].Pos.X, playerBullets[bullet].Pos.Y);
                     return bullet;
                 }
@@ -224,13 +241,14 @@ namespace KosmiczniNajeźdźcy
                     playerBullets.Add(player.Fire(PlayerCannon.color));
                     playerFireCooldown.Start();
                 }
-            } 
-            
+            }
+
         }
 
         private void OnEnemyTick(Object? source, System.Timers.ElapsedEventArgs e)
         {
-
+            enemyTick.Interval = 1000 - ((55 - enemies.Count) * 18);
+            enemiesTickHappened = true;
         }
 
         private void MoveEnemies(Graphics g)
@@ -265,7 +283,7 @@ namespace KosmiczniNajeźdźcy
                     enemie.MoveBy(moveByX, moveByY);
                     enemie.Refresh(g);
                 }
-            }   
+            }
         }
         private Entity GetRightMostEnemy()
         {
