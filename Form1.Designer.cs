@@ -41,9 +41,19 @@
             this.hiScoreLabel = new System.Windows.Forms.Label();
             this.scoreLabel2 = new System.Windows.Forms.Label();
             this.scoreLabel1 = new System.Windows.Forms.Label();
+            this.bottomPanel = new System.Windows.Forms.Panel();
+            this.lifePictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lifePictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lifeLabel = new System.Windows.Forms.Label();
+            this.creditLabel = new System.Windows.Forms.Label();
+            this.greenBottomThingy = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.logoBox)).BeginInit();
             this.startPanel.SuspendLayout();
             this.scorePanel.SuspendLayout();
+            this.bottomPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lifePictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lifePictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.greenBottomThingy)).BeginInit();
             this.SuspendLayout();
             // 
             // frameTimer
@@ -103,7 +113,7 @@
             // 
             this.scoreNr2Label.AutoSize = true;
             this.scoreNr2Label.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreNr2Label.Location = new System.Drawing.Point(509, 41);
+            this.scoreNr2Label.Location = new System.Drawing.Point(551, 45);
             this.scoreNr2Label.Name = "scoreNr2Label";
             this.scoreNr2Label.Size = new System.Drawing.Size(92, 18);
             this.scoreNr2Label.TabIndex = 5;
@@ -113,7 +123,7 @@
             // 
             this.HiScoreNrLabel.AutoSize = true;
             this.HiScoreNrLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.HiScoreNrLabel.Location = new System.Drawing.Point(264, 41);
+            this.HiScoreNrLabel.Location = new System.Drawing.Point(306, 45);
             this.HiScoreNrLabel.Name = "HiScoreNrLabel";
             this.HiScoreNrLabel.Size = new System.Drawing.Size(92, 18);
             this.HiScoreNrLabel.TabIndex = 4;
@@ -123,7 +133,7 @@
             // 
             this.scoreNr1Label.AutoSize = true;
             this.scoreNr1Label.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreNr1Label.Location = new System.Drawing.Point(12, 41);
+            this.scoreNr1Label.Location = new System.Drawing.Point(54, 45);
             this.scoreNr1Label.Name = "scoreNr1Label";
             this.scoreNr1Label.Size = new System.Drawing.Size(92, 18);
             this.scoreNr1Label.TabIndex = 3;
@@ -133,7 +143,7 @@
             // 
             this.hiScoreLabel.AutoSize = true;
             this.hiScoreLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.hiScoreLabel.Location = new System.Drawing.Point(264, 9);
+            this.hiScoreLabel.Location = new System.Drawing.Point(262, 13);
             this.hiScoreLabel.Name = "hiScoreLabel";
             this.hiScoreLabel.Size = new System.Drawing.Size(176, 18);
             this.hiScoreLabel.TabIndex = 2;
@@ -143,7 +153,7 @@
             // 
             this.scoreLabel2.AutoSize = true;
             this.scoreLabel2.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreLabel2.Location = new System.Drawing.Point(509, 9);
+            this.scoreLabel2.Location = new System.Drawing.Point(509, 13);
             this.scoreLabel2.Name = "scoreLabel2";
             this.scoreLabel2.Size = new System.Drawing.Size(176, 18);
             this.scoreLabel2.TabIndex = 1;
@@ -153,11 +163,72 @@
             // 
             this.scoreLabel1.AutoSize = true;
             this.scoreLabel1.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.scoreLabel1.Location = new System.Drawing.Point(12, 9);
+            this.scoreLabel1.Location = new System.Drawing.Point(12, 13);
             this.scoreLabel1.Name = "scoreLabel1";
             this.scoreLabel1.Size = new System.Drawing.Size(176, 18);
             this.scoreLabel1.TabIndex = 0;
             this.scoreLabel1.Text = "SCORE<1>";
+            // 
+            // bottomPanel
+            // 
+            this.bottomPanel.Controls.Add(this.greenBottomThingy);
+            this.bottomPanel.Controls.Add(this.lifePictureBox2);
+            this.bottomPanel.Controls.Add(this.lifePictureBox1);
+            this.bottomPanel.Controls.Add(this.lifeLabel);
+            this.bottomPanel.Controls.Add(this.creditLabel);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 750);
+            this.bottomPanel.Name = "bottomPanel";
+            this.bottomPanel.Size = new System.Drawing.Size(700, 50);
+            this.bottomPanel.TabIndex = 4;
+            // 
+            // lifePictureBox2
+            // 
+            this.lifePictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("lifePictureBox2.Image")));
+            this.lifePictureBox2.Location = new System.Drawing.Point(125, 9);
+            this.lifePictureBox2.Name = "lifePictureBox2";
+            this.lifePictureBox2.Size = new System.Drawing.Size(44, 28);
+            this.lifePictureBox2.TabIndex = 3;
+            this.lifePictureBox2.TabStop = false;
+            // 
+            // lifePictureBox1
+            // 
+            this.lifePictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("lifePictureBox1.Image")));
+            this.lifePictureBox1.Location = new System.Drawing.Point(75, 9);
+            this.lifePictureBox1.Name = "lifePictureBox1";
+            this.lifePictureBox1.Size = new System.Drawing.Size(44, 28);
+            this.lifePictureBox1.TabIndex = 3;
+            this.lifePictureBox1.TabStop = false;
+            // 
+            // lifeLabel
+            // 
+            this.lifeLabel.AutoSize = true;
+            this.lifeLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lifeLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.lifeLabel.Location = new System.Drawing.Point(27, 17);
+            this.lifeLabel.Name = "lifeLabel";
+            this.lifeLabel.Size = new System.Drawing.Size(29, 18);
+            this.lifeLabel.TabIndex = 2;
+            this.lifeLabel.Text = "3";
+            // 
+            // creditLabel
+            // 
+            this.creditLabel.AutoSize = true;
+            this.creditLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.creditLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.creditLabel.Location = new System.Drawing.Point(456, 17);
+            this.creditLabel.Name = "creditLabel";
+            this.creditLabel.Size = new System.Drawing.Size(197, 18);
+            this.creditLabel.TabIndex = 1;
+            this.creditLabel.Text = "CREDIT 00";
+            // 
+            // greenBottomThingy
+            // 
+            this.greenBottomThingy.BackColor = System.Drawing.Color.Lime;
+            this.greenBottomThingy.Location = new System.Drawing.Point(0, 3);
+            this.greenBottomThingy.Name = "greenBottomThingy";
+            this.greenBottomThingy.Size = new System.Drawing.Size(698, 3);
+            this.greenBottomThingy.TabIndex = 0;
+            this.greenBottomThingy.TabStop = false;
             // 
             // Form1
             // 
@@ -165,6 +236,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(697, 799);
+            this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.startPanel);
             this.Controls.Add(this.scorePanel);
             this.DoubleBuffered = true;
@@ -183,6 +255,11 @@
             this.startPanel.PerformLayout();
             this.scorePanel.ResumeLayout(false);
             this.scorePanel.PerformLayout();
+            this.bottomPanel.ResumeLayout(false);
+            this.bottomPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lifePictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lifePictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.greenBottomThingy)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -200,5 +277,11 @@
         private Label hiScoreLabel;
         private Label scoreLabel2;
         private Label scoreLabel1;
+        private Panel bottomPanel;
+        private PictureBox greenBottomThingy;
+        private Label lifeLabel;
+        private Label creditLabel;
+        private PictureBox lifePictureBox2;
+        private PictureBox lifePictureBox1;
     }
 }

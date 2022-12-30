@@ -17,6 +17,8 @@ namespace KosmiczniNajeźdźcy
             startPanel.Enabled = true;
             scorePanel.Visible = false;
             scorePanel.Enabled = false;
+            bottomPanel.Visible= false;
+            bottomPanel.Enabled = false;
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -91,6 +93,8 @@ namespace KosmiczniNajeźdźcy
                 gameStarted = true;
                 scorePanel.Enabled = true;
                 scorePanel.Visible = true;
+                bottomPanel.Visible = true;
+                bottomPanel.Enabled = true;
                 gc.fireButtonHeld = false;
             }
         }
