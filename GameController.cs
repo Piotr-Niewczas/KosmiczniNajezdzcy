@@ -166,11 +166,11 @@
                         }
                     } while (enemyNrToDelete != -1);
                 }
-
-                enemiesTickUnHandled = false;
+            
                 MoveEnemies(g);
+                // enemy shooting
                 Random r = new Random();
-                int howManyShots = r.Next(-5, enemies.Count / 10 + 1);
+                int howManyShots = r.Next((enemies.Count / 10 + 1)*(-1), enemies.Count / 10 + 2);
                 if (howManyShots > 0)
                 {
                     for (int i = 0; i < howManyShots; i++)
@@ -178,6 +178,8 @@
                         enemyBullets.Add(enemies[r.Next(0, enemies.Count())].Fire(Color.White));
                     }
                 }
+
+                enemiesTickUnHandled = false;
             }
 
 
@@ -310,6 +312,11 @@
                 {
                     enemie.MoveBy(moveByX, moveByY);
                     enemie.Refresh(g);
+
+                    if (enemie.Pos.Y > barriers[0].Pos.Y + barriers[0].Graphic.Size.Height) // if enemies get to low, kill player
+                    {
+                        player.ReciveDamage();
+                    }
                 }
             }
         }
