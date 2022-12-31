@@ -8,10 +8,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<PublishSingleFile>true</PublishSingleFile>
 	<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+	<StartupObject></StartupObject>
+	<ApplicationIcon>kosmiczni.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\ARCADE_N.TTF" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="kosmiczni.ico" />
   </ItemGroup>
 
   <ItemGroup>
