@@ -79,7 +79,7 @@
             this.pressToStartLabel.ForeColor = System.Drawing.Color.White;
             this.pressToStartLabel.Location = new System.Drawing.Point(0, 418);
             this.pressToStartLabel.Name = "pressToStartLabel";
-            this.pressToStartLabel.Size = new System.Drawing.Size(698, 18);
+            this.pressToStartLabel.Size = new System.Drawing.Size(698, 45);
             this.pressToStartLabel.TabIndex = 1;
             this.pressToStartLabel.Text = "Nacisnij SPACE aby rozpoczac!\r\n";
             this.pressToStartLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;

@@ -61,7 +61,7 @@
         private void SpawnEnemies()
         {
             enemies.Clear();
-            for (int j = 0; j < startEnemyCount/5; j++) // spawn enemies
+            for (int j = 0; j < startEnemyCount / 5; j++) // spawn enemies
             {
                 enemies.Add(new EnemySquid((PixelSize * 25) * j + 70 + 2 * PixelSize, 175));
                 enemies.Add(new EnemyCrab((PixelSize * 25) * j + 70, 175 + 50 * 1));
@@ -166,11 +166,11 @@
                         }
                     } while (enemyNrToDelete != -1);
                 }
-            
+
                 MoveEnemies(g);
                 // enemy shooting
                 Random r = new Random();
-                int howManyShots = r.Next((enemies.Count / 10 + 1)*(-1), enemies.Count / 10 + 2);
+                int howManyShots = r.Next((enemies.Count / 10 + 1) * (-1), enemies.Count / 10 + 2);
                 if (howManyShots > 0)
                 {
                     for (int i = 0; i < howManyShots; i++)
@@ -376,7 +376,7 @@
         {
             if (File.Exists(highScoreFilePath))
             {
-               HighScore = Convert.ToInt32(File.ReadAllText(highScoreFilePath));
+                HighScore = Convert.ToInt32(File.ReadAllText(highScoreFilePath));
             }
             else
             {

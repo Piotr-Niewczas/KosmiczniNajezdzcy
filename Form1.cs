@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using System.Drawing.Text;
+using System.Runtime.InteropServices;
 
 namespace KosmiczniNajeźdźcy
 {
@@ -14,6 +16,28 @@ namespace KosmiczniNajeźdźcy
         private void Form1_Load(object sender, EventArgs e)
         {
             logoBox.Visible = true;
+
+            //Create your private font collection object.
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            //Select your font from the resources.
+            //My font here is "Digireu.ttf"
+            int fontLength = Properties.Resources.ARCADE_N.Length;
+            // create a buffer to read in to
+            byte[] fontdata = Properties.Resources.ARCADE_N;
+            // create an unsafe memory block for the font data
+            System.IntPtr data = Marshal.AllocCoTaskMem(fontLength);
+            // copy the bytes to the unsafe memory block
+            Marshal.Copy(fontdata, 0, data, fontLength);
+            // pass the font to the font collection
+            pfc.AddMemoryFont(data, fontLength);
+
+            List<Label> labelsToChangeFont = new List<Label> {pressToStartLabel, scoreLabel1, scoreNr1Label, hiScoreLabel, HiScoreNrLabel, scoreLabel2 , scoreNr2Label, gameOverLabel, lifeLabel, creditLabel };
+
+            foreach (var label in labelsToChangeFont)
+            {
+                label.Font = new Font(pfc.Families[0], label.Font.Size, FontStyle.Regular);
+            }
+
             InitGame();
         }
 
@@ -57,13 +81,13 @@ namespace KosmiczniNajeźdźcy
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.A) 
+            if (e.KeyData == Keys.A || e.KeyData == Keys.Left) 
                 gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0] - 1, gc.vectToMovePlayerBy[1]};
-            if (e.KeyData == Keys.D)
+            if (e.KeyData == Keys.D || e.KeyData == Keys.Right)
                 gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0] + 1 , gc.vectToMovePlayerBy[1]};
-            if (e.KeyData == Keys.W)
+            if (e.KeyData == Keys.W || e.KeyData == Keys.Up)
                 gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0], gc.vectToMovePlayerBy[1] - 1 };
-            if (e.KeyData == Keys.S)
+            if (e.KeyData == Keys.S || e.KeyData == Keys.Down)
                 gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0], gc.vectToMovePlayerBy[1] + 1 };
 
             if (gc.vectToMovePlayerBy[0] > 1) gc.vectToMovePlayerBy[0] = 1;
@@ -76,13 +100,13 @@ namespace KosmiczniNajeźdźcy
         }
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.A)
+            if (e.KeyData == Keys.A || e.KeyData == Keys.Left)
                 gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0] + 1, gc.vectToMovePlayerBy[1] };
-            if (e.KeyData == Keys.D)
+            if (e.KeyData == Keys.D || e.KeyData == Keys.Right)
                 gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0] - 1, gc.vectToMovePlayerBy[1] };
-            if (e.KeyData == Keys.W)
+            if (e.KeyData == Keys.W || e.KeyData == Keys.Up)
                 gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0], gc.vectToMovePlayerBy[1] + 1 };
-            if (e.KeyData == Keys.S)
+            if (e.KeyData == Keys.S || e.KeyData == Keys.Down)
                 gc.vectToMovePlayerBy = new int[] { gc.vectToMovePlayerBy[0], gc.vectToMovePlayerBy[1] - 1 };
 
             if (gc.vectToMovePlayerBy[0] > 1) gc.vectToMovePlayerBy[0] = 1;
