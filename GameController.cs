@@ -20,7 +20,7 @@
         public int[] vectToMovePlayerBy = new int[] { 0, 0 };
         public bool fireButtonHeld = false;
         bool playerFireCooldownElapsed = true;
-        public bool ogFireMode = false;
+        public bool ogFireMode = true;
         public int player1Score = 0;
         private int playerLives = 3;
 
