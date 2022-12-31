@@ -24,7 +24,13 @@
         public int player1Score = 0;
         private int playerLives = 3;
 
-        public int HighScore { private set; get; }
+        public int HighScore
+        {
+            get
+            {
+                return Properties.Settings1.Default.highScore;
+            }
+        }
         public bool GameOverHappened { private set; get; }
 
         bool bulletHasCollided = true; // since last partial redraw
@@ -53,9 +59,7 @@
             enemyTick.Interval = 1000 - ((startEnemyCount - enemies.Count) * 18);
             enemyTick.Elapsed += OnEnemyTick;
             enemyTick.AutoReset = true;
-            enemyTick.Enabled = true;
-
-            LoadHighscore();
+            enemyTick.Enabled = true;    
         }
 
         private void SpawnEnemies()
@@ -170,14 +174,22 @@
                 MoveEnemies(g);
                 // enemy shooting
                 Random r = new Random();
-                int howManyShots = r.Next((enemies.Count / 10 + 1) * (-1), enemies.Count / 10 + 2);
-                if (howManyShots > 0)
+                foreach (var enemy in enemies)
                 {
-                    for (int i = 0; i < howManyShots; i++)
+                    if (r.Next(0, 100) > 96)
                     {
                         enemyBullets.Add(enemies[r.Next(0, enemies.Count())].Fire(Color.White));
                     }
                 }
+
+                //int howManyShots = r.Next((enemies.Count / 10 + 1) * (-1), enemies.Count / 10 + 2);
+                //if (howManyShots > 0)
+                //{
+                //    for (int i = 0; i < howManyShots; i++)
+                //    {
+
+                //    }
+                //}
 
                 enemiesTickUnHandled = false;
             }
@@ -356,7 +368,6 @@
             enemyBullets.Clear();
             playerBullets.Clear();
             SaveHighscore();
-            LoadHighscore();
             player1Score = 0;
             PlayerLives = 3;
             GameOverHappened = false;
@@ -366,22 +377,12 @@
         const string highScoreFilePath = "highscore.txt";
         public void SaveHighscore()
         {
-            LoadHighscore();
             if (player1Score > HighScore)
             {
-                File.WriteAllText(highScoreFilePath, player1Score.ToString());
+                Properties.Settings1.Default.highScore = player1Score;
+                Properties.Settings1.Default.Save();
             }
         }
-        public void LoadHighscore()
-        {
-            if (File.Exists(highScoreFilePath))
-            {
-                HighScore = Convert.ToInt32(File.ReadAllText(highScoreFilePath));
-            }
-            else
-            {
-                HighScore = 0;
-            }
-        }
+
     }
 }

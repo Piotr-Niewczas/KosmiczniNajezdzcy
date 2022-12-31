@@ -95,7 +95,6 @@
             this.gameOverLabel.TabIndex = 1;
             this.gameOverLabel.Text = "GAME OVER!";
             this.gameOverLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.gameOverLabel.Visible = false;
             // 
             // scorePanel
             // 

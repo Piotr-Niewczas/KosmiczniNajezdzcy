@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Drawing.Text;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace KosmiczniNajeźdźcy
@@ -8,34 +9,36 @@ namespace KosmiczniNajeźdźcy
     {
         GameController gc = new GameController();
         bool gameStarted = false;
+
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
+    IntPtr pdv, [System.Runtime.InteropServices.In] ref uint pcFonts);
+        private PrivateFontCollection fonts = new PrivateFontCollection();
+
         public Form1()
         {
             InitializeComponent();
+
+            //load font from resources
+            byte[] fontData = Properties.Resources.ARCADE_N;
+            IntPtr fontPtr = System.Runtime.InteropServices.Marshal.AllocCoTaskMem(fontData.Length);
+            System.Runtime.InteropServices.Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            uint dummy = 0;
+            fonts.AddMemoryFont(fontPtr, Properties.Resources.ARCADE_N.Length);
+            AddFontMemResourceEx(fontPtr, (uint)Properties.Resources.ARCADE_N.Length, IntPtr.Zero, ref dummy);
+            System.Runtime.InteropServices.Marshal.FreeCoTaskMem(fontPtr);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             logoBox.Visible = true;
-
-            //Create your private font collection object.
-            PrivateFontCollection pfc = new PrivateFontCollection();
-            //Select your font from the resources.
-            //My font here is "Digireu.ttf"
-            int fontLength = Properties.Resources.ARCADE_N.Length;
-            // create a buffer to read in to
-            byte[] fontdata = Properties.Resources.ARCADE_N;
-            // create an unsafe memory block for the font data
-            System.IntPtr data = Marshal.AllocCoTaskMem(fontLength);
-            // copy the bytes to the unsafe memory block
-            Marshal.Copy(fontdata, 0, data, fontLength);
-            // pass the font to the font collection
-            pfc.AddMemoryFont(data, fontLength);
-
+     
             List<Label> labelsToChangeFont = new List<Label> {pressToStartLabel, scoreLabel1, scoreNr1Label, hiScoreLabel, HiScoreNrLabel, scoreLabel2 , scoreNr2Label, gameOverLabel, lifeLabel, creditLabel };
 
             foreach (var label in labelsToChangeFont)
             {
-                label.Font = new Font(pfc.Families[0], label.Font.Size, FontStyle.Regular);
+                label.Font = new Font(fonts.Families[0], label.Font.Size, FontStyle.Regular);
             }
 
             InitGame();
@@ -52,6 +55,7 @@ namespace KosmiczniNajeźdźcy
 
         private void frameTimer_Tick(object sender, EventArgs e)
         {
+            Refresh();
             scoreNr1Label.Text = gc.player1Score.ToString().PadLeft(4, '0');
             lifeLabel.Text = gc.PlayerLives.ToString();
             HiScoreNrLabel.Text = gc.HighScore.ToString().PadLeft(4, '0');
@@ -76,7 +80,7 @@ namespace KosmiczniNajeźdźcy
                 pressToStartLabel.Visible = true;
             }
 
-            Refresh();
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
