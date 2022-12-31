@@ -2,10 +2,10 @@
 {
     public class GameController
     {
-        private Bitmap playArea = new Bitmap(700, 800);
+        private Bitmap playArea;
 
-        private static System.Timers.Timer playerFireCooldown;
-        private static System.Timers.Timer enemyTick;
+        private System.Timers.Timer playerFireCooldown;
+        private System.Timers.Timer enemyTick;
 
         public readonly static int PixelSize = 2;
 
@@ -20,9 +20,12 @@
         public int[] vectToMovePlayerBy = new int[] { 0, 0 };
         public bool fireButtonHeld = false;
         bool playerFireCooldownElapsed = true;
-        public bool ogFireMode = true;
+        public bool ogFireMode = false;
         public int player1Score = 0;
         private int playerLives = 3;
+
+        public int HighScore { private set; get; }
+        public bool GameOverHappened { private set; get; }
 
         bool bulletHasCollided = true; // since last partial redraw
 
@@ -32,23 +35,16 @@
 
         public void Start()
         {
+            playArea = new Bitmap(700, 800);
             player = new PlayerCannon(new Point(330, 680));
 
-            
-            for (int j = 0; j < 11; j++) // spawn enemies
-            {
-                enemies.Add(new EnemySquid((PixelSize * 25) * j + 70 + 2 * PixelSize, 175));
-                enemies.Add(new EnemyCrab((PixelSize * 25) * j + 70, 175 + 50 * 1));
-                enemies.Add(new EnemyCrab((PixelSize * 25) * j + 70, 175 + 50 * 2));
-                enemies.Add(new EnemyEclipse((PixelSize * 25) * j + 70, 175 + 50 * 3));
-                enemies.Add(new EnemyEclipse((PixelSize * 25) * j + 70, 175 + 50 * 4));
-            }
+            SpawnEnemies();
             for (int b = 0; b < 4; b++) // spawn barriers
             {
                 barriers.Add(new Barrier(new Point(90 + 150 * b, 590), 2));
             }
 
-            playerFireCooldown = new System.Timers.Timer(450);
+            playerFireCooldown = new System.Timers.Timer(100); //450
             playerFireCooldown.Elapsed += OnPlayerFireCooldownElapsed;
             playerFireCooldown.AutoReset = false;
             playerFireCooldown.Enabled = false;
@@ -58,6 +54,29 @@
             enemyTick.Elapsed += OnEnemyTick;
             enemyTick.AutoReset = true;
             enemyTick.Enabled = true;
+
+            LoadHighscore();
+        }
+
+        private void SpawnEnemies()
+        {
+            enemies.Clear();
+            for (int j = 0; j < startEnemyCount/5; j++) // spawn enemies
+            {
+                enemies.Add(new EnemySquid((PixelSize * 25) * j + 70 + 2 * PixelSize, 175));
+                enemies.Add(new EnemyCrab((PixelSize * 25) * j + 70, 175 + 50 * 1));
+                enemies.Add(new EnemyCrab((PixelSize * 25) * j + 70, 175 + 50 * 2));
+                enemies.Add(new EnemyEclipse((PixelSize * 25) * j + 70, 175 + 50 * 3));
+                enemies.Add(new EnemyEclipse((PixelSize * 25) * j + 70, 175 + 50 * 4));
+            }
+        }
+
+        private void RefreshAll(List<IDrawable> list, Graphics g)
+        {
+            foreach (var entity in list)
+            {
+                entity.Refresh(g);
+            }
         }
         public void Update(PaintEventArgs e) // runs every draw event
         {
@@ -68,11 +87,23 @@
             {
                 PlayerFire();
             }
-            player.Refresh(g);
-            foreach (var enemy in enemies)
+
+            if (player.IsDead)
             {
-                enemy.Refresh(g);
+                GameOverHappened = true;
             }
+
+            player.Refresh(g);
+
+            if (enemies.Count == 0)
+            {
+                //some delay?
+                SpawnEnemies();
+            }
+            //foreach (var enemy in enemies)
+            //{
+            //    enemy.Refresh(g);
+            //}
             for (int bullet = 0; bullet < playerBullets.Count(); bullet++) // Update player bullets
             {
                 playerBullets[bullet].Refresh(g);
@@ -105,19 +136,13 @@
                         bulletHasCollided = true;
                         enemyBullets[collidedBulletIndex].ReciveDamage();// damage collided bullet
                     }
-                    
+
                 }
             }
             if (bulletHasCollided)
             {
-                foreach (var barrier in barriers)
-                {
-                    barrier.Refresh(g);
-                }
-                foreach (var enemy in enemies)
-                {
-                    enemy.Refresh(g);
-                }
+                RefreshAll(barriers.Cast<IDrawable>().ToList(), g);
+                RefreshAll(enemies.Cast<IDrawable>().ToList(), g);
                 bulletHasCollided = false;
             }
 
@@ -154,11 +179,12 @@
                     }
                 }
             }
-           
+
 
             e.Graphics.DrawImage(playArea, 0, 0);
 
         }
+
         private int CheckPlayerBullets(int bullet, Graphics g)
         {
             int ifNotHitValue = -1;
@@ -188,7 +214,6 @@
 
             return ifNotHitValue;
         }
-
         private int CheckEnemyBullets(int bullet, Graphics g)
         {
             int ifNotHitValue = -1;
@@ -254,7 +279,6 @@
             enemyTick.Interval = 1000 - ((startEnemyCount - enemies.Count) * 18);
             enemiesTickUnHandled = true;
         }
-
         private void MoveEnemies(Graphics g)
         {
             if (enemies.Count != 0)
@@ -289,6 +313,7 @@
                 }
             }
         }
+
         private Entity GetRightMostEnemy()
         {
             int max = int.MinValue;
@@ -316,6 +341,40 @@
                 }
             }
             return entity;
+        }
+
+        public void RestartAfterGameOver()
+        {
+            enemies.Clear();
+            enemyBullets.Clear();
+            playerBullets.Clear();
+            SaveHighscore();
+            LoadHighscore();
+            player1Score = 0;
+            PlayerLives = 3;
+            GameOverHappened = false;
+            Start(); // Start() clears playArea at the beginning
+        }
+
+        const string highScoreFilePath = "highscore.txt";
+        public void SaveHighscore()
+        {
+            LoadHighscore();
+            if (player1Score > HighScore)
+            {
+                File.WriteAllText(highScoreFilePath, player1Score.ToString());
+            }
+        }
+        public void LoadHighscore()
+        {
+            if (File.Exists(highScoreFilePath))
+            {
+               HighScore = Convert.ToInt32(File.ReadAllText(highScoreFilePath));
+            }
+            else
+            {
+                HighScore = 0;
+            }
         }
     }
 }

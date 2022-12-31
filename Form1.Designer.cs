@@ -32,8 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.frameTimer = new System.Windows.Forms.Timer(this.components);
             this.logoBox = new System.Windows.Forms.PictureBox();
-            this.startLabel = new System.Windows.Forms.Label();
-            this.startPanel = new System.Windows.Forms.Panel();
+            this.pressToStartLabel = new System.Windows.Forms.Label();
+            this.gameOverLabel = new System.Windows.Forms.Label();
             this.scorePanel = new System.Windows.Forms.Panel();
             this.scoreNr2Label = new System.Windows.Forms.Label();
             this.HiScoreNrLabel = new System.Windows.Forms.Label();
@@ -48,7 +48,6 @@
             this.lifeLabel = new System.Windows.Forms.Label();
             this.creditLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoBox)).BeginInit();
-            this.startPanel.SuspendLayout();
             this.scorePanel.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.greenBottomThingy)).BeginInit();
@@ -67,32 +66,36 @@
             this.logoBox.BackColor = System.Drawing.Color.Black;
             this.logoBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.logoBox.Image = ((System.Drawing.Image)(resources.GetObject("logoBox.Image")));
-            this.logoBox.Location = new System.Drawing.Point(0, 0);
+            this.logoBox.Location = new System.Drawing.Point(0, 76);
             this.logoBox.Name = "logoBox";
-            this.logoBox.Size = new System.Drawing.Size(694, 305);
+            this.logoBox.Size = new System.Drawing.Size(694, 247);
             this.logoBox.TabIndex = 0;
             this.logoBox.TabStop = false;
             // 
-            // startLabel
+            // pressToStartLabel
             // 
-            this.startLabel.AutoSize = true;
-            this.startLabel.BackColor = System.Drawing.Color.Transparent;
-            this.startLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.startLabel.ForeColor = System.Drawing.Color.White;
-            this.startLabel.Location = new System.Drawing.Point(46, 330);
-            this.startLabel.Name = "startLabel";
-            this.startLabel.Size = new System.Drawing.Size(617, 18);
-            this.startLabel.TabIndex = 1;
-            this.startLabel.Text = "Nacisnij SPACE aby rozpoczac!\r\n";
+            this.pressToStartLabel.BackColor = System.Drawing.Color.Transparent;
+            this.pressToStartLabel.Font = new System.Drawing.Font("Arcade Normal", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.pressToStartLabel.ForeColor = System.Drawing.Color.White;
+            this.pressToStartLabel.Location = new System.Drawing.Point(0, 418);
+            this.pressToStartLabel.Name = "pressToStartLabel";
+            this.pressToStartLabel.Size = new System.Drawing.Size(698, 18);
+            this.pressToStartLabel.TabIndex = 1;
+            this.pressToStartLabel.Text = "Nacisnij SPACE aby rozpoczac!\r\n";
+            this.pressToStartLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // startPanel
+            // gameOverLabel
             // 
-            this.startPanel.Controls.Add(this.startLabel);
-            this.startPanel.Controls.Add(this.logoBox);
-            this.startPanel.Location = new System.Drawing.Point(0, 76);
-            this.startPanel.Name = "startPanel";
-            this.startPanel.Size = new System.Drawing.Size(700, 631);
-            this.startPanel.TabIndex = 2;
+            this.gameOverLabel.BackColor = System.Drawing.Color.Transparent;
+            this.gameOverLabel.Font = new System.Drawing.Font("Arcade Normal", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.gameOverLabel.ForeColor = System.Drawing.Color.White;
+            this.gameOverLabel.Location = new System.Drawing.Point(0, 326);
+            this.gameOverLabel.Name = "gameOverLabel";
+            this.gameOverLabel.Size = new System.Drawing.Size(700, 75);
+            this.gameOverLabel.TabIndex = 1;
+            this.gameOverLabel.Text = "GAME OVER!";
+            this.gameOverLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.gameOverLabel.Visible = false;
             // 
             // scorePanel
             // 
@@ -236,8 +239,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(697, 799);
+            this.Controls.Add(this.logoBox);
+            this.Controls.Add(this.gameOverLabel);
             this.Controls.Add(this.bottomPanel);
-            this.Controls.Add(this.startPanel);
+            this.Controls.Add(this.pressToStartLabel);
             this.Controls.Add(this.scorePanel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -245,14 +250,13 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Kosmiczni Najeźdźcy";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.logoBox)).EndInit();
-            this.startPanel.ResumeLayout(false);
-            this.startPanel.PerformLayout();
             this.scorePanel.ResumeLayout(false);
             this.scorePanel.PerformLayout();
             this.bottomPanel.ResumeLayout(false);
@@ -268,8 +272,7 @@
 
         private System.Windows.Forms.Timer frameTimer;
         private PictureBox logoBox;
-        private Label startLabel;
-        private Panel startPanel;
+        private Label pressToStartLabel;
         private Panel scorePanel;
         private Label scoreNr2Label;
         private Label HiScoreNrLabel;
@@ -283,5 +286,6 @@
         private Label creditLabel;
         private PictureBox lifePictureBox2;
         private PictureBox lifePictureBox1;
+        private Label gameOverLabel;
     }
 }
