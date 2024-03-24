@@ -15,11 +15,11 @@ Gracz ma trzy życia widoczne w lewym dolnym rogu ekranu.
 
 ### Menu główne
 
-![Menu główne](titleScreen.png)
+<img src="titleScreen.png" width="50%">
 
 ### Ekran gry
 
-![Ekran gry](game.png)
+<img src="game.png" width="50%">
 
 ## Zastosowane technologie
 
